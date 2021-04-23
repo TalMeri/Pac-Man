@@ -3,9 +3,88 @@
 	<head>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<script src="./dobpicker.js"></script>
+
 	</head>
 
 	<body>
+		<div class="header">
+			<img src=logo.png height="70px"/>
+		</div>
+		<div class="menu">
+			<a class="link" onclick="openDisplay('Welcome')">Welcome</a>
+			<a class="link" onclick="openDisplay('Register')">Register</a>
+			<a class="link" onclick="openDisplay('Login')">Login</a>
+			<a class="link" onclick="openDisplay('About')">About</a>
+		</div>
+		  
+		<div class="screen" id="Welcome">
+			<img src=logo.png height="70px"/>
+			<button id="B_register" onclick="openDisplay('Register')">Register</button>
+			<button id="B_login" onclick="openDisplay('Login')">Login</button>
+		</div>
+
+		<div class="screen" id=Register style="display: none;">
+			<h1>Register</h1>
+			<form>
+			<label for="uname"><b>User Name</b></label>
+			<input type="text" placeholder="Enter User Name" name="uname" required><br/>
+			<label for="pswd"><b>Password</b></label>
+			<input type="text" placeholder="Enter Password" minlength="6" name="pswd" required><br/>
+			<label for="fname"><b>Full Name</b></label>
+			<input type="text" placeholder="Enter Full Name" name="fname" required><br/>
+			<label for="email"><b>E-mail</b></label>
+			<input type="text" placeholder="Enter E-mail" name="email" required><br/>
+			<label for="uname"><b>User Name</b></label>
+			<input type="text" placeholder="Enter Username" name="uname" required><br/>
+			<select id="dob-day"></select>
+			<select id="dob-month"></select>
+			<select id="dob-year"></select>
+			<button type="submit">Submit</button>
+			</form>
+		</div>
+
+		<div class="screen" id="Login" style="display: none;">
+			<form>
+			<label for="uname"><b>User Name</b></label>
+			<input type="text" placeholder="Enter User Name" name="uname" id="uname" required value=""><br/>
+			<label for="pswd"><b>Password</b></label>
+			<input type="text" placeholder="Enter Password" name="pswd" id="pswd" required value=""><br/>
+			<input type="button" onclick="loginValidate()" value="Login">
+			</form>
+			<dialog id="mydialog"><p>"wrong"</p>
+			<button onclick="closeDialog()">Exit</button></dialog>
+		
+		</div>
+
+		<div class="screen" id="Setting" style="display: none;">
+			<h>Setting</h>
+			<p>Press a key for UP <input type="text" maxlength="1" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp"></p>
+			<p>Press a key for DOWN <input type="text" maxlength="1" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown"></p>
+			<p>Press a key for LEFT <input type="text" maxlength="1" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft"></p>
+			<p>Press a key for RIGHT <input type="text" maxlength="1" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight"></p>
+			<p>Number of Balls:</p>
+			<input class="slider" id="BallRange" type="range" min="50" max="90" value="70" oninput="numBalls(this.id,'outB')">
+			<p>Value: <span id="outB" ></span></p>
+			<p>Color of Balls:</p>
+			<p>5 points<input id="5p" type=color value="#ff0000" oninput="pickColor('5p')">15 points <input id="15p" type=color value="#c6d83b" oninput="pickColor('15p')">25 points <input id="25p" type=color value="#38cc4a" oninput="pickColor('25p')"></p>
+			<p>time for game<input type="number" maxlength="0" id="Time" min="60" oninput="TimeUpdate()"> sec </p>
+			<p>Number of Monsters:</p>
+			<select id="numM" oninput="numMonster()">
+				<option value="1">1</option>
+				<option selected="selected" value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			  </select>
+			<p>Random selection:</p>
+			<button onclick="randomPick()">random</button>
+			<button onclick="startgame()">LETS PLAY</button>
+		</div>
+
+
+		<div id="Game" class="screen" style="display: none;">
+		<div id="LoginName"><p>Hello, <span id="LoginOut"></span></p></div>
+		<div id="hearts"><img id="1" src=heart.png height="20px"/><img id="2" src=heart.png height="20px"/><img id="3" src=heart.png height="20px"/><img id="4" src=heart.png height="20px"/><img id="5" src=heart.png height="20px"/></div>
 		<div id="score">
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
@@ -14,8 +93,11 @@
 			<label for="lblTime">TIME:</label>
 			<input id="lblTime" type="text" />
 		</div>
+		<button onclick="newGame()">New Game</button>
 		<div id="game">
 			<canvas id="canvas" height="600" width="600"></canvas>
 		</div>
+	</div>
 	</body>
+	
 </html>
