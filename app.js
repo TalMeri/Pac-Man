@@ -28,6 +28,8 @@ var numLive=5;
 var startPosition=new Object();
 var gametime=60;
 var foodLeft=70;
+var pillLeft=2;
+var clockleft=1;
 
 function startgame(){
 	openDisplay("Game");
@@ -45,6 +47,8 @@ function Start() {
 	numLive=5;
 	face=4;
 	foodLeft=numberB;
+	pillLeft=2;
+	clockleft=1;
 	monsters=[];
 	var allMonsters = [monster1, monster2, monster3, monster4]
 	var food_remain = numberB;
@@ -210,10 +214,6 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
-	if (foodLeft==numberB-10){
-		var emptyCell2=findRandomEmptyCell(board);
-		board[emptyCell2[0]][emptyCell2[1]]=301;
-	}
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -272,7 +272,6 @@ function Draw() {
 				context.closePath();
 				context.translate(-center.x,-center.y);
 			}
-
 			if (board[i][j] == 2) {
 				context.beginPath();
 				if(face==4){
@@ -324,35 +323,48 @@ function Draw() {
 				context.fill();
 			}
 			else if (board[i][j]==301){
-				context.translate(30, 30);
 				var radius = 15 * 0.90
 				var grad;
 				context.beginPath();
 				context.arc(center.x, center.y, radius, 0, 2*Math.PI);
 				context.fillStyle = 'white';
 				context.fill();
-				grad = context.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
-				grad.addColorStop(0, 'black');
-				context.strokeStyle = grad;
-				context.lineWidth = radius*0.1;
 				context.stroke();
-				context.beginPath();
-				context.arc(center.x, center.y, radius*0.1, 0, 2*Math.PI);
-				context.fill();
 				var hour = 15%12;
 				var minute = 30;
 				hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60));
-				drawHand(context, hour, radius*0.5, radius*0.07);
+				//drawHand(context, hour, radius*0.5, radius*0.07);
 				minute=(minute*Math.PI/30);
-				drawHand(context, minute, radius*0.8, radius*0.07);
-				context.translate(-30,-30);
+				//drawHand(context, minute, radius*0.8, radius*0.07);
 			}
+			else if (board[i][j]==302){
+				context.beginPath();
+				context.fillStyle="white";
+				context.arc(center.x, center.y, 8, Math.PI*0.5, Math.PI*1.5);
+				context.fill();
+				context.closePath();
+
+				context.beginPath();
+				context.fillRect(center.x,center.y-8,8,16);
+				context.closePath;
+
+				context.beginPath();
+				context.fillStyle="red";
+				context.arc(center.x+15, center.y, 8, Math.PI*1.5, Math.PI*0.5);
+				context.fill();
+				context.closePath();
+
+				context.beginPath();
+				context.fillRect(center.x+8,center.y-8,8,16);
+				context.closePath;
+			}
+
 		}
 	}
 }
 
 function drawHand(context, pos, length, width) {
-    context.beginPath();
+	context.beginPath();
     context.lineWidth = width;
     context.lineCap = "round";
     context.moveTo(0,0);
@@ -394,6 +406,11 @@ function meetMonster(){
 	score=score-10;
 	var monster_remain=numberM;
 	var monsterColor=100;
+	if (pillLeft>0){
+		var emptyCell3 = findRandomEmptyCell(board);
+		board[emptyCell3[0]][emptyCell3[1]]=302;
+		pillLeft--;
+	}
 	if (numLive>1){
 		document.getElementById(numLive).style.display="none";
 		numLive--;
@@ -472,6 +489,11 @@ function UpdatePosition() {
 		window.clearInterval(interval2);
 		window.alert("Winner!!!1");
 	}
+	if (foodLeft==numberB-10 && clockleft>0){
+		var emptyCell2=findRandomEmptyCell(board);
+		board[emptyCell2[0]][emptyCell2[1]]=301;
+		clockleft--;
+	}
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
 	if (x == 1) {
@@ -505,17 +527,21 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 100 || board[shape.i][shape.j] == 101 || board[shape.i][shape.j] == 102 ||board[shape.i][shape.j] == 103){
 		meetMonster();
 	}
-	if (board[shape.i][shape.j]==300){
-		meetStar();
-		if (star.prev==25 || star.prev==15|| star.prev==5){
-			score=score+star.prev;
-			foodLeft--;
-		}
-	}
-	else if (board[shape.i][shape.j]==301){
-		currentTime=currentTime-10;
-	}
 	else{
+		if (board[shape.i][shape.j]==300){
+			meetStar();
+			if (star.prev==25 || star.prev==15|| star.prev==5){
+				score=score+star.prev;
+				foodLeft--;
+			}
+		}
+		else if (board[shape.i][shape.j]==301){
+			gametime=gametime+10;
+		}
+		else if (board[shape.i][shape.j]==302){
+			numLive++;
+			document.getElementById(numLive).style.display="";
+		}
 		board[shape.i][shape.j] = 2;
 	}
 	var currentTime = new Date();
@@ -638,15 +664,15 @@ function randomPick(){
 	document.getElementById("outB").innerHTML = numberB;
 	document.getElementById("BallRange").value=numberB;
 
-	var val5 = Math.floor(Math.random()*16777215).toString(16);
+	var val5 = (0x1000000+Math.random()*0xffffff).toString(16).substr(1,6)
   	document.getElementById("5p").value = "#" + val5;
 	ball5p="#"+val5;
 
-	var val15 = Math.floor(Math.random()*16777215).toString(16);
+	var val15 = (0x1000000+Math.random()*0xffffff).toString(16).substr(1,6);
   	document.getElementById("15p").value = "#" + val15;
 	ball15p="#"+val15;
 
-	var val25 = Math.floor(Math.random()*16777215).toString(16);
+	var val25 = (0x1000000+Math.random()*0xffffff).toString(16).substr(1,6);
   	document.getElementById("25p").value = "#" + val25;
 	ball25p="#"+val25;
 

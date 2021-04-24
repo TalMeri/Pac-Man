@@ -1,0 +1,163 @@
+* {
+	box-sizing: border-box;
+    /*background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important; */
+  }
+body {
+	margin: 0;
+	width: 100%;
+    height: 100%;
+    padding: 0;
+    font-family:monospace,Arial;
+	justify-content: center;
+	align-items: center;
+	font-size: 15px;
+    background: black;
+    color:white;	
+}
+#topBar{
+    background: black;
+    position: fixed;
+	text-align: center;
+	width: 100%;
+	left:0;
+	top:0;
+	z-index: 99;
+    color: white;
+    padding:20px;
+}
+#main{
+    position: relative;
+	margin-top: 180px;
+	margin-bottom: 180px;
+}
+.menu
+{
+    width: 100%;
+	font-size: 17px;
+	height: 50px;
+	padding:15px 15px 15px 15px;
+}
+.screen{
+    text-align: center;
+    margin-top: 25px;
+    padding: 5px 5px 5px 5px;
+}
+
+.menu a{
+	text-decoration: none;
+	padding: 30px;
+    cursor: context-menu;
+}
+a.Lwelcome:hover{
+    color:pink;
+}
+a.Lregister:hover{
+    color:#ffcc66;
+}
+a.Llogin:hover{
+    color:#99ff66;
+}
+a.Labout:hover{
+    color:#4ddbff;
+}
+button {
+	padding: 10px;
+	margin-top: 20px;
+	border-radius: 20px;
+    font-family:inherit;;
+	border:2px solid rgba(75, 75, 247, 0.856);
+	border-bottom: 4px solid  rgba(75, 75, 247, 0.856);
+	background: #272727;  
+	font-size: 16px;
+	font-weight: 400;
+	color: #fff;
+	outline: none;
+}
+#Welcome button{
+    width: 16%;
+}
+#Register button{
+    width:30%;
+}
+button:hover {
+	background:#39383d;
+} 
+#Register label {
+    float: left;
+    width: 200px;
+    padding-right: 24px;
+}
+#selectA{
+    float: left;
+    width: 200px;
+    padding-right: 24px;
+}
+input, textarea { 
+	outline: none;
+}
+input, textarea { 
+	outline: none;
+	}
+	form {
+	position: relative;
+	width: 600px;
+	border-radius: 30px;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	}
+	.form-inner {
+	padding: 40px;
+	}
+	.form-inner input,
+	.form-inner textarea
+     {
+	font-family:inherit;
+	display: block;
+	width: 100%;
+    float: left;
+    width: calc(100% - 200px);
+	padding: 15px;
+	margin-bottom: 10px;
+	border: none;
+	border-radius: 20px;
+	background: lightgrey;
+	}
+	.form-inner textarea {
+	resize: none;
+	}
+	input:-webkit-autofill,
+	textarea:-webkit-autofill {
+		box-shadow: initial;
+	  -webkit-box-shadow: 0 0 0px 1000px lightgrey inset;
+	}
+    @media screen and (max-width: 600px) {
+        form {
+        width: 100%;
+        }
+        .form-inner input,
+        .form-inner textarea {
+            width: calc(100% - 50px);
+        }
+        .menu{
+            font-size: 13px;
+            padding:2px 2px 2px 2px;
+        }
+
+    }
+    select {
+        height: 30px;
+        word-wrap: break-word;
+        font-family:inherit;
+        border-radius: 30px;
+        background: lightgrey;
+    }
+    #selectB{
+        display: inline-block;
+        width: 100%-200px;
+    }
+
+
+
