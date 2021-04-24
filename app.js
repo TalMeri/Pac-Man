@@ -6,7 +6,6 @@ var monster2 =new Object();
 var monster3 =new Object();
 var monster4 =new Object();
 var monsters=[];
-var prevals=[];
 var board;
 var pac_color;
 var start_time;
@@ -47,7 +46,6 @@ function Start() {
 	face=4;
 	foodLeft=numberB;
 	monsters=[];
-	prevals=[];
 	var allMonsters = [monster1, monster2, monster3, monster4]
 	var food_remain = numberB;
 	var monster_remain = numberM;
@@ -58,7 +56,6 @@ function Start() {
 	var monsterColor=100;
 	for(var m=0; m<numberM; m++){
 		monsters.push(allMonsters[m]);
-		prevals.push(0);
 	}
 	for(var r=1; r<=5; r++)
 		document.getElementById(r).style.display="";
@@ -82,13 +79,6 @@ function Start() {
 				star.j=j;
 				star.prev=0;
 			}
-			else if(((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))&& monster_remain>0){
-					board[i][j]=monsterColor;
-					monsters[numberM-monster_remain].i=i;
-					monsters[numberM-monster_remain].j=j;
-					monster_remain--;
-					monsterColor++;
-				}
 			else{
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
@@ -115,7 +105,7 @@ function Start() {
 						board[i][j] = 15;
 					}
 					
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
+				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt && (!(i==0 && j==0) || !(i==0 && j==9) || !(i==9 && j==0) ||!(i==9 && j==9))) {
 					shape.i = i;
 					shape.j = j;
 					startPosition.i=i;
@@ -126,6 +116,14 @@ function Start() {
 					board[i][j] = 0;
 				}
 				cnt--;
+			}
+			if(((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))&& monster_remain>0){
+				monsters[numberM-monster_remain].prev=board[i][j];
+				board[i][j]=monsterColor;
+				monsters[numberM-monster_remain].i=i;
+				monsters[numberM-monster_remain].j=j;
+				monster_remain--;
+				monsterColor++;
 			}
 		}
 	}
@@ -179,8 +177,8 @@ function Start() {
 		false
 	);
 	interval = setInterval(UpdatePosition, 100);
-	interval1 = setInterval(UpdatePositionS, 500);
 	interval2 = setInterval(UpdatePositionM, 500);
+	interval1 = setInterval(UpdatePositionS, 500);
 }
 
 function findRandomEmptyCell(board) {
@@ -212,6 +210,10 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
+	if (foodLeft==numberB-10){
+		var emptyCell2=findRandomEmptyCell(board);
+		board[emptyCell2[0]][emptyCell2[1]]=301;
+	}
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -321,14 +323,50 @@ function Draw() {
 				context.fillStyle = "grey"; //color
 				context.fill();
 			}
+			else if (board[i][j]==301){
+				context.translate(30, 30);
+				var radius = 15 * 0.90
+				var grad;
+				context.beginPath();
+				context.arc(center.x, center.y, radius, 0, 2*Math.PI);
+				context.fillStyle = 'white';
+				context.fill();
+				grad = context.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+				grad.addColorStop(0, 'black');
+				context.strokeStyle = grad;
+				context.lineWidth = radius*0.1;
+				context.stroke();
+				context.beginPath();
+				context.arc(center.x, center.y, radius*0.1, 0, 2*Math.PI);
+				context.fill();
+				var hour = 15%12;
+				var minute = 30;
+				hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60));
+				drawHand(context, hour, radius*0.5, radius*0.07);
+				minute=(minute*Math.PI/30);
+				drawHand(context, minute, radius*0.8, radius*0.07);
+				context.translate(-30,-30);
+			}
 		}
 	}
 }
+
+function drawHand(context, pos, length, width) {
+    context.beginPath();
+    context.lineWidth = width;
+    context.lineCap = "round";
+    context.moveTo(0,0);
+    context.rotate(pos);
+    context.lineTo(0, -length);
+    context.stroke();
+    context.rotate(-pos);
+}
+
 function UpdatePositionM(){
 	var monsterColor=100;
-	var cantMoveTo=[4,100,101,102,103];
+	var cantMoveTo=[4,100,101,102,103,300];
 	for (var i=0;i<monsters.length;i++){
-		board[monsters[i].i][monsters[i].j]=prevals[i];
+		board[monsters[i].i][monsters[i].j]=monsters[i].prev;
 		if(monsters[i].i>shape.i && monsters[i].i>0 && !(cantMoveTo.includes(board[monsters[i].i-1][monsters[i].j]))){
 			monsters[i].i--;
 		}
@@ -345,7 +383,7 @@ function UpdatePositionM(){
 			meetMonster();
 		}
 		else{
-			prevals[i]=board[monsters[i].i][monsters[i].j];
+			monsters[i].prev=board[monsters[i].i][monsters[i].j];
 			board[monsters[i].i][monsters[i].j]=monsterColor
 		}
 		monsterColor++;
@@ -360,7 +398,8 @@ function meetMonster(){
 		document.getElementById(numLive).style.display="none";
 		numLive--;
 		for (var i=0 ; i<monsters.length ; i++){
-			board[monsters[i].i][monsters[i].j]=prevals[i];
+			board[monsters[i].i][monsters[i].j]=monsters[i].prev;
+			monsters[i].prev=0;
 		}
 		for (var j=0 ;j<=9;j=j+9){
 			for(var m=0; m<=9;m=m+9){
@@ -391,37 +430,40 @@ function meetMonster(){
 }
 function UpdatePositionS(){
 	var moveTo=Math.floor(Math.random() * (4 - 1 + 1) + 1);
-	var cantMoveTo=[4,100,101,102,103];
-	var didMove=false;
-	var count=0;
-	//while(!didMove && count<10){
-		if (moveTo==1 && !(cantMoveTo.includes(board[star.i+1][star.j])) && star.i<9){
-			board[star.i][star.j]=star.prev;
+	var cantMoveTo=[4,100,101,102,103, 301];
+	board[star.i][star.j]=star.prev;
+	if(moveTo==1){
+		if (star.i<9 &&!(cantMoveTo.includes(board[star.i+1][star.j]))){
 			star.i++;
-			didMove=true;
-			star.prev=board[star.i][star.j];
 		}
-		else if(moveTo==2 && !(cantMoveTo.includes(board[star.i][star.j+1])) && star.j<9){
-			board[star.i][star.j]=star.prev;
+	}
+	if(moveTo==2){
+		if(star.j<9 && !(cantMoveTo.includes(board[star.i][star.j+1]))){
 			star.j++;
-			didMove=true;
-			star.prev=board[star.i][star.j];
 		}
-		else if(moveTo==3 && !(cantMoveTo.includes(board[star.i-1][star.j])) && star.i>0){
-			board[star.i][star.j]=star.prev;
+	}
+	if(moveTo==3){
+		if(star.i>0 && !(cantMoveTo.includes(board[star.i-1][star.j]))){
 			star.i--;
-			didMove=true;
-			star.prev=board[star.i][star.j];
 		}
-		else if(moveTo==4 && !(cantMoveTo.includes(board[star.i][star.j--])) && star.j>0){
-			board[star.i][star.j]=star.prev;
+	}
+	if(moveTo==4){
+		if(star.j>0 && !(cantMoveTo.includes(board[star.i][star.j-1]))){
 			star.j--;
-			didMove=true;
-			star.prev=board[star.i][star.j];
 		}
-		count++;
-	//}
-	board[star.i][star.j]=300;
+	}
+	if (board[star.i][star.j] ==2){
+		meetStar();
+	}
+	else{
+		star.prev=board[star.i][star.j];
+		board[star.i][star.j]=300
+	}
+}
+function meetStar(){
+	score=score+50;
+	window.clearInterval(interval1);
+	
 }
 function UpdatePosition() {
 	if(foodLeft==0){
@@ -462,6 +504,16 @@ function UpdatePosition() {
 	}
 	if (board[shape.i][shape.j] == 100 || board[shape.i][shape.j] == 101 || board[shape.i][shape.j] == 102 ||board[shape.i][shape.j] == 103){
 		meetMonster();
+	}
+	if (board[shape.i][shape.j]==300){
+		meetStar();
+		if (star.prev==25 || star.prev==15|| star.prev==5){
+			score=score+star.prev;
+			foodLeft--;
+		}
+	}
+	else if (board[shape.i][shape.j]==301){
+		currentTime=currentTime-10;
 	}
 	else{
 		board[shape.i][shape.j] = 2;
