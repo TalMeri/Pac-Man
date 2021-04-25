@@ -2,14 +2,14 @@
 	box-sizing: border-box;
     /*background: #000 !important;
     color: #0f0 !important;
-    outline: solid #f00 1px !important; */
+    outline: solid #f00 1px !important;*/
   }
 body {
 	margin: 0;
 	width: 100%;
     height: 100%;
     padding: 0;
-    font-family:monospace,Arial;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	justify-content: center;
 	align-items: center;
 	font-size: 15px;
@@ -29,8 +29,7 @@ body {
 }
 #main{
     position: relative;
-	margin-top: 180px;
-	margin-bottom: 180px;
+	margin-top: 130px;
 }
 .menu
 {
@@ -41,7 +40,7 @@ body {
 }
 .screen{
     text-align: center;
-    margin-top: 25px;
+    margin-top: 40px;
     padding: 5px 5px 5px 5px;
 }
 
@@ -50,23 +49,23 @@ body {
 	padding: 30px;
     cursor: context-menu;
 }
-a.Lwelcome:hover{
+a.Lwelcome:hover, #Setting h1{
     color:pink;
 }
-a.Lregister:hover{
+a.Lregister:hover ,#Register h1{
     color:#ffcc66;
 }
-a.Llogin:hover{
+a.Llogin:hover ,#Login h1{
     color:#99ff66;
 }
 a.Labout:hover{
     color:#4ddbff;
 }
-button {
+button, #submitLogin {
 	padding: 10px;
 	margin-top: 20px;
 	border-radius: 20px;
-    font-family:inherit;;
+    font-family:inherit;
 	border:2px solid rgba(75, 75, 247, 0.856);
 	border-bottom: 4px solid  rgba(75, 75, 247, 0.856);
 	background: #272727;  
@@ -78,21 +77,21 @@ button {
 #Welcome button{
     width: 16%;
 }
-#Register button{
+#Register button ,#submitLogin{
     width:30%;
 }
-button:hover {
-	background:#39383d;
+button:hover, #submitLogin:hover{
+	background:#424242;
 } 
-#Register label {
+label {
     float: left;
-    width: 200px;
+    width: 120px;
     padding-right: 24px;
 }
-#selectA{
-    float: left;
-    width: 200px;
-    padding-right: 24px;
+#buttonHolder{
+    display: flex;
+    width:100%;
+    text-align: center;
 }
 input, textarea { 
 	outline: none;
@@ -118,7 +117,7 @@ input, textarea {
 	display: block;
 	width: 100%;
     float: left;
-    width: calc(100% - 200px);
+    width: calc(100% - 120px);
 	padding: 15px;
 	margin-bottom: 10px;
 	border: none;
@@ -139,7 +138,12 @@ input, textarea {
         }
         .form-inner input,
         .form-inner textarea {
-            width: calc(100% - 50px);
+            width: calc(100% - 90px);
+        }
+        label {
+            float: left;
+            width: 90px;
+            padding-right: 24px;
         }
 
         .menu a{
@@ -147,6 +151,10 @@ input, textarea {
 	        padding: 10px;
             cursor: context-menu;
         }
+        #Welcome button{
+            width: 25%;
+        }
+        
 
     }
     select {
@@ -160,6 +168,43 @@ input, textarea {
         display: inline-block;
         width: 100%-200px;
     }
+    .submitLogin{
+        display: block;
+        margin-right: auto;
+        margin-left: auto;  
+    }
+    dialog::backdrop {
+        background: black;
+        opacity: 0.7;
+    }
+    dialog{
+        border-radius: 20px;
+        background:lightgrey;
+        width: 300px;
+        height: 170px;
+        overflow: auto;
+        border:none;
+    }
+
+    dialog .close {
+        position: absolute;
+        top: 10px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+      dialog .close:hover {
+        color: #99ff66;
+      }
+      dialog h2 {
+        margin-top: 0;
+        color: #333;
+      }
+
+
 
 
 

@@ -11,9 +11,7 @@
 	<body>
 		<div id="topBar">
 			<div class="header">
-				<img src=logoleft.png height="70px"/>
 				<img src=logo2.png height="70px"/>
-				<img src=logoright.png height="70px"/>
 			</div>
 			<div class="menu">
 				<a class="Lwelcome" onclick="openDisplay('Welcome')">Welcome</a>
@@ -34,20 +32,20 @@
 		<div class="screen" id=Register style="display: none;">
 			<h1>Register</h1>
 			<form>
-				<div class="form-inner">
+				<div class="form-inner" id="register-form" onsubmit="openDisplay">
 					<label class="RegisterLable" for="uname"><b>User Name</b></label>
-					<input type="text" placeholder="Enter User Name" name="uname" required><br/>
+					<input type="text" placeholder="Enter User Name" name="uname"><br/>
 					<label class="RegisterLable" for="pswd"><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" minlength="6" name="pswd" required><br/>
+					<input type="password" placeholder="Enter Password" minlength="6" name="pswd"><br/>
 					<label for="fname"><b>Full Name</b></label>
-					<input type="text" placeholder="Enter Full Name" name="fname" required><br/>
+					<input type="text" placeholder="Enter Full Name" name="fname"><br/>
 					<label for="email"><b>E-mail</b></label>
-					<input type="text" placeholder="Enter E-mail" name="email" required><br/>
+					<input type="text" placeholder="Enter E-mail" name="email"><br/>
 					<label id="selectA" for="uname"><b>Birth Date</b></label>
 					<div id="selectB">
-					<select id="dob-day"></select>
-					<select id="dob-month"></select>	
-					<select id="dob-year"></select>	
+					<select name="day" id="dob-day"></select>
+					<select name="month" id="dob-month"></select>	
+					<select name="year" id="dob-year"></select>	
 					</div>
 					<br/>
 					<button type="submit">Submit</button>
@@ -57,20 +55,26 @@
 		
 
 		<div class="screen" id="Login" style="display: none;">
+			<h1>Login</h1>
 			<form>
-			<label for="uname"><b>User Name</b></label>
-			<input type="text" placeholder="Enter User Name" name="uname" id="uname" required value=""><br/>
-			<label for="pswd"><b>Password</b></label>
-			<input type="text" placeholder="Enter Password" name="pswd" id="pswd" required value=""><br/>
-			<input type="button" onclick="loginValidate()" value="Login">
-			</form>
-			<dialog id="mydialog"><p>"wrong"</p>
-			<button onclick="closeDialog()">Exit</button></dialog>
+				<div class="form-inner">
+					<label for="uname"><b>User Name</b></label>
+					<input type="text" placeholder="Enter User Name" name="uname" id="uname" required value=""><br/>
+					<label for="pswd"><b>Password</b></label>
+					<input type="password" placeholder="Enter Password" name="pswd" id="pswd" required value=""><br/>
+					<div id="buttonHolder">
+					<input class="submitLogin" id="submitLogin" type="button" onclick="loginValidate()" value="Login">
+					</div>
+				</div>
+			</form> 
+			<dialog class="box" id="mydialog"><h2>HO NO :(</h2><a class="close" onclick="closeDialog()">X</a>
+			<p>User Name and Password dosen't exsit</br><b>Please Try Again</b></p>
+			</dialog>
 		
 		</div>
 
 		<div class="screen" id="Setting" style="display: none;">
-			<h>Setting</h>
+			<h1>Setting</h1>
 			<p>Press a key for UP <input type="text" maxlength="1" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp"></p>
 			<p>Press a key for DOWN <input type="text" maxlength="1" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown"></p>
 			<p>Press a key for LEFT <input type="text" maxlength="1" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft"></p>
