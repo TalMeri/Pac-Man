@@ -481,7 +481,7 @@ function UpdatePosition() {
 		window.clearInterval(interval);
 		window.clearInterval(interval1);
 		window.clearInterval(interval2);
-		window.alert("Winner!!!1");
+		openDialog('winner');
 	}
 	if (foodLeft==numberB-10 && clockleft>0){
 		var emptyCell2=findRandomEmptyCell(board);
@@ -552,8 +552,10 @@ function UpdatePosition() {
 		window.clearInterval(interval);
 		window.clearInterval(interval1);
 		window.clearInterval(interval2);
-		if(score<100)
-			window.alert("You are better than "+ score +" points!");
+		if(score<100){
+			document.getElementById('better').innerHTML("You are better than "+ score +" points!");
+			openDialog('better');
+		}
 		else
 			window.alert("Winner!!!");
 	}
@@ -589,10 +591,15 @@ $(function(){
 		return this.optional( element ) || /^[a-z\s]+$/i.test( value );
 	}, "Letters only please" );
 
+	$.validator.addMethod( "userexist", function( value, element ) {
+		return this.optional( element ) || !(users.includes(value));
+	}, "User allready exist" );
+
 	$("#register-form").validate({
 		rules: {
 			uname:{
-				required: true
+				required: true,
+				userexist: true
 
 			},
 			pswd:{
@@ -619,12 +626,13 @@ $(function(){
 			year:{
 				required: true
 			}
-		}
-	});
-	$("#sumbit-button").validate({
+		},
 		submitHandler: function(form){
+			users.push(document.getElementById('username').value);
+			passwords.push(document.getElementById("passwd").value);
+			var form = $("#register-form");
+			form[0].reset();
 			openDisplay('Login');
-			return false;
 		}
 	});
 });
@@ -644,14 +652,14 @@ function loginValidate() {
 		openDisplay("Setting");
 	}
 	else{
-		openDialog();
+		openDialog('mydialog');
 	}
 }
-function openDialog(){
-	document.getElementById("mydialog").showModal();
+function openDialog(ID){
+	document.getElementById(ID).showModal();
 }
-function closeDialog(){
-	document.getElementById("mydialog").close();
+function closeDialog(ID){
+	document.getElementById(ID).close();
 }
 function changeKey(keyToChange,event){
 	var val = event.key;

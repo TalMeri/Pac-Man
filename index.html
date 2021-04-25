@@ -31,12 +31,12 @@
 
 		<div class="screen" id=Register style="display: none;">
 			<h1>Register</h1>
-			<form>
-				<div class="form-inner" id="register-form" onsubmit="openDisplay">
+			<form id="register-form" >
+				<div class="form-inner" >
 					<label class="RegisterLable" for="uname"><b>User Name</b></label>
-					<input type="text" placeholder="Enter User Name" name="uname"><br/>
+					<input type="text" placeholder="Enter User Name" name="uname" id="username"><br/>
 					<label class="RegisterLable" for="pswd"><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" minlength="6" name="pswd"><br/>
+					<input type="password" placeholder="Enter Password" minlength="6" name="pswd" id="passwd"><br/>
 					<label for="fname"><b>Full Name</b></label>
 					<input type="text" placeholder="Enter Full Name" name="fname"><br/>
 					<label for="email"><b>E-mail</b></label>
@@ -67,7 +67,7 @@
 					</div>
 				</div>
 			</form> 
-			<dialog class="box" id="mydialog"><h2>HO NO :(</h2><a class="close" onclick="closeDialog()">X</a>
+			<dialog class="box" id="mydialog"><h2>HO NO :(</h2><a class="close" onclick="closeDialog('mydialog')">X</a>
 			<p>User Name and Password dosen't exsit</br><b>Please Try Again</b></p>
 			</dialog>
 		
@@ -113,6 +113,10 @@
 		<div id="game">
 			<canvas id="canvas" height="600" width="600"></canvas>
 		</div>
+		<dialog class="box" id="winner"><h2></br>Winner!!!</h2><a class="close" onclick="closeDialog('winner')">X</a>
+		</dialog>
+		<dialog class="box" id="better"><h2></br></h2><a class="close" onclick="closeDialog('winner')">X</a>
+		</dialog>
 	</div>
 </div> 
 	</body>
