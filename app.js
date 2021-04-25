@@ -324,18 +324,13 @@ function Draw() {
 			}
 			else if (board[i][j]==301){
 				var radius = 15 * 0.90
-				var grad;
 				context.beginPath();
 				context.arc(center.x, center.y, radius, 0, 2*Math.PI);
 				context.fillStyle = 'white';
 				context.fill();
 				context.stroke();
-				var hour = 15%12;
-				var minute = 30;
-				hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60));
-				//drawHand(context, hour, radius*0.5, radius*0.07);
-				minute=(minute*Math.PI/30);
-				//drawHand(context, minute, radius*0.8, radius*0.07);
+				drawHand(context, radius*0.5, radius*0.07, center.x-radius*0.5, center.y, center.x, center.y);
+				drawHand(context, radius*0.8, radius*0.07, center.x, center.y, center.x, center.y-radius*0.8);
 			}
 			else if (board[i][j]==302){
 				context.beginPath();
@@ -363,15 +358,15 @@ function Draw() {
 	}
 }
 
-function drawHand(context, pos, length, width) {
+function drawHand(context,length, width, x, y, endx, endy) {
 	context.beginPath();
     context.lineWidth = width;
     context.lineCap = "round";
-    context.moveTo(0,0);
-    context.rotate(pos);
-    context.lineTo(0, -length);
+    context.moveTo(x,y);
+	//context.rotate(pos);
+	context.lineTo(endx,endy);
     context.stroke();
-    context.rotate(-pos);
+    //context.rotate(-pos);
 }
 
 function UpdatePositionM(){
@@ -431,7 +426,6 @@ function meetMonster(){
 		}
 
 		//pacman to start
-		board[shape.i][shape.j]=0;
 		board[startPosition.i][startPosition.j]=2;
 		face=4;
 		shape.i=startPosition.i;
@@ -586,6 +580,54 @@ function openDisplay(clicked_id){
 		maximumAge: 100
 	});
 });
+$(function(){
+	$.validator.addMethod('strongPassword', function(value, element){
+		return this.optional(element) || value.length >=6 && /\d/.test(value) && /[a-z]/i.test(value);
+	}, 'Your password must be at least 6 characters long and contain at least one number and one char\'.');
+
+	$.validator.addMethod( "lettersonly", function( value, element ) {
+		return this.optional( element ) || /^[a-z\s]+$/i.test( value );
+	}, "Letters only please" );
+
+	$("#register-form").validate({
+		rules: {
+			uname:{
+				required: true
+
+			},
+			pswd:{
+				required: true,
+				strongPassword: true
+
+			},
+			fname:{
+				required: true,
+				lettersonly: true
+
+			},
+			email:{
+				required: true,
+				email: true
+
+			},
+			day:{
+				required: true
+			},
+			month:{
+				required: true
+			},
+			year:{
+				required: true
+			}
+		}
+	});
+	$("#sumbit-button").validate({
+		submitHandler: function(form){
+			openDisplay('Login');
+			return false;
+		}
+	});
+});
 
 function loginValidate() {
 	var username = document.getElementById('uname').value;
@@ -678,6 +720,9 @@ function randomPick(){
 
 	numberM=Math.floor(Math.random() * (4 - 1 + 1) + 1);
 	document.getElementById("numM").value = numberM;
+
+	gametime=Math.floor(Math.random() * (600 - 60 + 1) + 60);
+	document.getElementById("Time").value = gametime;
 
 }
 
