@@ -11,7 +11,7 @@
 	<body>
 		<div id="topBar">
 			<div class="header">
-				<img src=logo2.png height="70px"/>
+				<img src=logo2.png height="50px"/>
 			</div>
 			<div class="menu">
 				<a class="Lwelcome" onclick="openDisplay('Welcome')">Welcome</a>
@@ -37,11 +37,11 @@
 					<input type="text" placeholder="Enter User Name" name="uname" id="username"><br/>
 					<label class="RegisterLable" for="pswd"><b>Password</b></label>
 					<input type="password" placeholder="Enter Password" minlength="6" name="pswd" id="passwd"><br/>
-					<label for="fname"><b>Full Name</b></label>
+					<label class="RegisterLable" for="fname"><b>Full Name</b></label>
 					<input type="text" placeholder="Enter Full Name" name="fname"><br/>
-					<label for="email"><b>E-mail</b></label>
+					<label class="RegisterLable" for="email"><b>E-mail</b></label>
 					<input type="text" placeholder="Enter E-mail" name="email"><br/>
-					<label id="selectA" for="uname"><b>Birth Date</b></label>
+					<label class="RegisterLable" id="selectA" for="uname"><b>Birth Date</b></label>
 					<div id="selectB">
 					<select name="day" id="dob-day"></select>
 					<select name="month" id="dob-month"></select>	
@@ -56,11 +56,11 @@
 
 		<div class="screen" id="Login" style="display: none;">
 			<h1>Login</h1>
-			<form>
+			<form id="login-form">
 				<div class="form-inner">
-					<label for="uname"><b>User Name</b></label>
+					<label class="LoginLable" for="uname"><b>User Name</b></label>
 					<input type="text" placeholder="Enter User Name" name="uname" id="uname" required value=""><br/>
-					<label for="pswd"><b>Password</b></label>
+					<label class="LoginLable" for="pswd"><b>Password</b></label>
 					<input type="password" placeholder="Enter Password" name="pswd" id="pswd" required value=""><br/>
 					<div id="buttonHolder">
 					<input class="submitLogin" id="submitLogin" type="button" onclick="loginValidate()" value="Login">
@@ -75,47 +75,72 @@
 
 		<div class="screen" id="Setting" style="display: none;">
 			<h1>Setting</h1>
-			<p>Press a key for UP <input type="text" maxlength="1" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp"></p>
-			<p>Press a key for DOWN <input type="text" maxlength="1" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown"></p>
-			<p>Press a key for LEFT <input type="text" maxlength="1" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft"></p>
-			<p>Press a key for RIGHT <input type="text" maxlength="1" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight"></p>
-			<p>Number of Balls:</p>
-			<input class="slider" id="BallRange" type="range" min="50" max="90" value="70" oninput="numBalls(this.id,'outB')">
-			<p>Value: <span id="outB" ></span></p>
-			<p>Color of Balls:</p>
-			<p>5 points<input id="5p" type=color value="#ff0000" oninput="pickColor('5p')">15 points <input id="15p" type=color value="#c6d83b" oninput="pickColor('15p')">25 points <input id="25p" type=color value="#38cc4a" oninput="pickColor('25p')"></p>
-			<p>time for game<input type="number" maxlength="0" id="Time" min="60" oninput="TimeUpdate()"> sec </p>
-			<p>Number of Monsters:</p>
-			<select id="numM" oninput="numMonster()">
-				<option value="1">1</option>
-				<option selected="selected" value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-			  </select>
-			<p>Random selection:</p>
-			<button onclick="randomPick()">random</button>
-			<button onclick="startgame()">LETS PLAY</button>
+			<form id = "setting-form">
+				<div class="form-inner">
+					<label>Press a key for UP</label>
+					<input type="text" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp" name="keyup">
+					<label>Press a key for DOWN </label>
+					<input type="text" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown" name="keydown">
+					<label>Press a key for LEFT </label>
+					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft" name="keyleft">
+					<label>Press a key for RIGHT</label>
+					<input type="text" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight" name="keyright">
+					<label>Number of Balls:</label>
+					<input class="slider" id="BallRange" type="range" min="50" max="90" value="70" oninput="numBalls(this.id,'outB')">
+					<label>Value: <span id="outB" ></span></label>
+					<label>Color of Balls:</label>
+					<label>5 points</label>
+					<input id="5p" type=color value="#ff0000" oninput="pickColor('5p')">
+					<label>15 points</label>
+					<input id="15p" type=color value="#c6d83b" oninput="pickColor('15p')">
+					<label>25 points</label>
+					<input id="25p" type=color value="#38cc4a" oninput="pickColor('25p')">
+					<label>Time for game</label>
+					<input type="number" id="Time" min="60" oninput="TimeUpdate()" name="gametime">
+					<label> sec </label>
+					<label>Number of Monsters:</label>
+					<select id="numM" oninput="numMonster()">
+						<option value="1">1</option>
+						<option selected="selected" value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
+					<input class="submitLogin" id="randombtn" type="button" onclick="randomPick()" value="random">
+					<input class="submitLogin" id="startbtn" type="submit" value="LETS PLAY">
+				</div>
+			</form>
 		</div>
 
 
 		<div id="Game" class="screen" style="display: none;">
-		<div id="LoginName"><p>Hello, <span id="LoginOut"></span></p></div>
-		<div id="hearts"><img id="1" src=heart.png height="20px"/><img id="2" src=heart.png height="20px"/><img id="3" src=heart.png height="20px"/><img id="4" src=heart.png height="20px"/><img id="5" src=heart.png height="20px"/></div>
-		<div id="score">
+			<h1>The PAC-MAN Game</h1>
+			<div class="topBarG">
+		<div class="topbar-Game" id="LoginName"><p>Hello, <span id="LoginOut"></span></p></div>
+		<div class="topbar-Game" id="hearts"><img id="1" src=heart.png height="20px"/><img id="2" src=heart.png height="20px"/><img id="3" src=heart.png height="20px"/><img id="4" src=heart.png height="20px"/><img id="5" src=heart.png height="20px"/></div>
+		<div class="topbar-Game" id="score">
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
 		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
+		<div class="topbar-Game" id="time">
+			<label for="lblTime">TIMER:</label>
 			<input id="lblTime" type="text" />
 		</div>
-		<button onclick="newGame()">New Game</button>
+		<div class="topbar-Game" id="timeLeft">
+			<label for="lblTime1">TIME LEFT:</label>
+			<input id="lblTime1" type="text"/>
+		</div>
+			</div>
+			<br/>
 		<div id="game">
 			<canvas id="canvas" height="600" width="600"></canvas>
 		</div>
-		<dialog class="box" id="winner"><h2></br>Winner!!!</h2><a class="close" onclick="closeDialog('winner')">X</a>
+		<br/>
+		<button onclick="newGame()">New Game</button>
+		<dialog class="box" id="winner"><h2>Winner!!!</h2><a class="close" onclick="closeDialog('winner')">X</a>
 		</dialog>
-		<dialog class="box" id="better"><h2></br></h2><a class="close" onclick="closeDialog('winner')">X</a>
+		<dialog class="box" id="better"><h2 id='text'></h2><a class="close" onclick="closeDialog('better')">X</a>
+		</dialog>
+		<dialog class="box" id="loser"><h2 id='text'>Loser</h2><a class="close" onclick="closeDialog('loser')">X</a>
 		</dialog>
 	</div>
 </div> 

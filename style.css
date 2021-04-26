@@ -25,18 +25,18 @@ body {
 	top:0;
 	z-index: 99;
     color: white;
-    padding:10px;
+    padding: 8px 5px 5px 5px;
 }
 #main{
     position: relative;
-	margin-top: 130px;
+	margin-top: 100px;
 }
 .menu
 {
     width: 100%;
 	font-size: 17px;
 	height: 50px;
-	padding:15px 15px 15px 15px;
+	padding:5px 5px 5px 5px;
 }
 .screen{
     text-align: center;
@@ -61,7 +61,10 @@ a.Llogin:hover ,#Login h1{
 a.Labout:hover{
     color:#4ddbff;
 }
-button, #submitLogin {
+#Game h1{
+    color:#c1a4f7e0;	
+}
+button, #submitLogin, #randombtn, #startbtn {
 	padding: 10px;
 	margin-top: 20px;
 	border-radius: 20px;
@@ -77,13 +80,13 @@ button, #submitLogin {
 #Welcome button{
     width: 16%;
 }
-#Register button ,#submitLogin{
+#Register button ,#submitLogin, #randombtn, #startbtn{
     width:30%;
 }
-button:hover, #submitLogin:hover{
+button:hover, #submitLogin:hover, #randombtn:hover, #startbtn:hover{
 	background:#424242;
 } 
-label {
+.RegisterLable, .LoginLable  {
     float: left;
     width: 120px;
     padding-right: 24px;
@@ -138,11 +141,22 @@ input, textarea {
         }
         .form-inner input,
         .form-inner textarea {
-            width: calc(100% - 90px);
+            width: 100%;
         }
         label {
             float: left;
             width: 90px;
+            padding-right: 24px;
+        }
+        	
+        #selectB{
+            display: inline-block;
+            width: calc(100% - 90px);
+        }
+        #selectA{
+            float: left;
+            width: 100px;
+            padding-right: 24px;
             padding-right: 24px;
         }
 
@@ -154,7 +168,9 @@ input, textarea {
         #Welcome button{
             width: 25%;
         }
-        
+        .error{
+            width:100%;
+        }
 
     }
     select {
@@ -203,6 +219,36 @@ input, textarea {
         margin-top: 0;
         color: #333;
       }
+      .error label{
+        float: none;
+        width: 100%;
+        margin-bottom: 7px;
+    }
+    #dob-day-error ,#dob-month-error, #dob-year-error{
+        width:30px;
+    }
+    canvas {
+      border: 2px solid blue;
+  }   
+  #LoginName,#hearts{
+      float: left;
+  }
+  .topbar-Game {
+      float: left;
+      width: 20%;
+    }
+    
+    /* Clear floats after the columns */
+    .topBarG:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .topbar-Game input{
+      border-radius: 20px;
+      background:lightgrey;
+      width: 50%;
+    }
 
 
 

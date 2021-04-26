@@ -40,6 +40,7 @@ function startgame(){
 }
 
 function Start() {
+	canvas.width=canvas.width;
 	board = new Array();
 	pac_color = "yellow";
 	var cnt = 100;
@@ -77,6 +78,14 @@ function Start() {
 			) {
 				board[i][j] = 4;
 			}
+			else if(((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))&& monster_remain>0){
+				monsters[numberM-monster_remain].prev=board[i][j];
+				board[i][j]=monsterColor;
+				monsters[numberM-monster_remain].i=i;
+				monsters[numberM-monster_remain].j=j;
+				monster_remain--;
+				monsterColor++;
+			}
 			else if(i==4 && j==4){
 				board[i][j]=300;
 				star.i=i;
@@ -109,7 +118,7 @@ function Start() {
 						board[i][j] = 15;
 					}
 					
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt && (!(i==0 && j==0) || !(i==0 && j==9) || !(i==9 && j==0) ||!(i==9 && j==9))) {
+				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt ) {
 					shape.i = i;
 					shape.j = j;
 					startPosition.i=i;
@@ -120,14 +129,6 @@ function Start() {
 					board[i][j] = 0;
 				}
 				cnt--;
-			}
-			if(((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))&& monster_remain>0){
-				monsters[numberM-monster_remain].prev=board[i][j];
-				board[i][j]=monsterColor;
-				monsters[numberM-monster_remain].i=i;
-				monsters[numberM-monster_remain].j=j;
-				monster_remain--;
-				monsterColor++;
 			}
 		}
 	}
@@ -304,23 +305,34 @@ function Draw() {
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
 				context.fillStyle = ball25p; //color
 				context.fill();
+				context.strokeStyle="white";
+				context.stroke();
 			}
 			else if (board[i][j] == 15) {
 				context.beginPath();
 				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
 				context.fillStyle = ball15p; //color
 				context.fill();
+				context.strokeStyle="white";
+				context.stroke();
 			}
 			else if (board[i][j] == 5) {
 				context.beginPath();
 				context.arc(center.x, center.y, 5, 0, 2 * Math.PI); // circle
 				context.fillStyle = ball5p; //color
 				context.fill();
+				context.strokeStyle="white";
+				context.stroke();
+
 			} else if (board[i][j] == 4) {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
+				context.fillStyle = "black"; //color
 				context.fill();
+				context.lineWidth=2;
+				context.strokeStyle="blue";
+				context.stroke();
+				context.lineWidth=1;
 			}
 			else if (board[i][j]==301){
 				var radius = 15 * 0.90
@@ -329,8 +341,8 @@ function Draw() {
 				context.fillStyle = 'white';
 				context.fill();
 				context.stroke();
-				drawHand(context, radius*0.5, radius*0.07, center.x-radius*0.5, center.y, center.x, center.y);
-				drawHand(context, radius*0.8, radius*0.07, center.x, center.y, center.x, center.y-radius*0.8);
+				drawHand(context, radius*0.07, center.x-radius*0.5, center.y, center.x, center.y);
+				drawHand(context, radius*0.07, center.x, center.y, center.x, center.y-radius*0.8);
 			}
 			else if (board[i][j]==302){
 				context.beginPath();
@@ -358,13 +370,14 @@ function Draw() {
 	}
 }
 
-function drawHand(context,length, width, x, y, endx, endy) {
+function drawHand(context, width, x, y, endx, endy) {
 	context.beginPath();
     context.lineWidth = width;
     context.lineCap = "round";
     context.moveTo(x,y);
 	//context.rotate(pos);
 	context.lineTo(endx,endy);
+	context.strokeStyle="black";
     context.stroke();
     //context.rotate(-pos);
 }
@@ -387,6 +400,11 @@ function UpdatePositionM(){
 			monsters[i].j++;
 		}
 		if (board[monsters[i].i][monsters[i].j] ==2){
+			for (var k=0 ; k<monsters.length ; k++){
+				board[monsters[k].i][monsters[k].j]=monsters[k].prev;
+				monsters[k].prev=0;
+			}
+			board[shape.i][shape.j]=0;
 			meetMonster();
 		}
 		else{
@@ -406,13 +424,14 @@ function meetMonster(){
 		board[emptyCell3[0]][emptyCell3[1]]=302;
 		pillLeft--;
 	}
+	//pacman to start
+	board[startPosition.i][startPosition.j]=2;
+	face=4;
+	shape.i=startPosition.i;
+	shape.j=startPosition.j;
 	if (numLive>1){
 		document.getElementById(numLive).style.display="none";
 		numLive--;
-		for (var i=0 ; i<monsters.length ; i++){
-			board[monsters[i].i][monsters[i].j]=monsters[i].prev;
-			monsters[i].prev=0;
-		}
 		for (var j=0 ;j<=9;j=j+9){
 			for(var m=0; m<=9;m=m+9){
 				if(monster_remain>0){
@@ -424,18 +443,12 @@ function meetMonster(){
 				}
 			}
 		}
-
-		//pacman to start
-		board[startPosition.i][startPosition.j]=2;
-		face=4;
-		shape.i=startPosition.i;
-		shape.j=startPosition.j;
 	}
 	else{
 		window.clearInterval(interval);
 		window.clearInterval(interval1);
 		window.clearInterval(interval2);
-		window.alert("Loser!");
+		openDialog('loser');
 
 	}
 }
@@ -519,6 +532,10 @@ function UpdatePosition() {
 		foodLeft--;
 	}
 	if (board[shape.i][shape.j] == 100 || board[shape.i][shape.j] == 101 || board[shape.i][shape.j] == 102 ||board[shape.i][shape.j] == 103){
+		for (var k=0 ; k<monsters.length ; k++){
+			board[monsters[k].i][monsters[k].j]=monsters[k].prev;
+			monsters[k].prev=0;
+		}
 		meetMonster();
 	}
 	else{
@@ -553,11 +570,11 @@ function UpdatePosition() {
 		window.clearInterval(interval1);
 		window.clearInterval(interval2);
 		if(score<100){
-			document.getElementById('better').innerHTML("You are better than "+ score +" points!");
+			document.getElementById('text').innerHTML="You are better than "+ score +" points!";
 			openDialog('better');
 		}
 		else
-			window.alert("Winner!!!");
+			openDialog('winner');
 	}
 	//}
 }
@@ -595,6 +612,11 @@ $(function(){
 		return this.optional( element ) || !(users.includes(value));
 	}, "User allready exist" );
 
+	$.validator.addMethod( "keyexist", function( value, element ) {
+		return this.optional( element ) || !(value==up.key && value==down.key && value==right.key && value==left.key);
+	}, "Key allready choosen" );
+
+
 	$("#register-form").validate({
 		rules: {
 			uname:{
@@ -627,12 +649,42 @@ $(function(){
 				required: true
 			}
 		},
+		messages:{
+			day:{
+				required:" required"
+			},
+			month:{
+				required:" required"
+			},
+			year:{
+				required:" required"
+			}
+		},
 		submitHandler: function(form){
 			users.push(document.getElementById('username').value);
 			passwords.push(document.getElementById("passwd").value);
 			var form = $("#register-form");
 			form[0].reset();
 			openDisplay('Login');
+		}
+	});
+	$("#setting-form").validate({
+		rules: {
+			keyup:{
+				keyexist: true
+			},
+			keydown:{
+				keyexist: true
+			},
+			keyright:{
+				keyexist: true
+			},
+			keyleft:{
+				keyexist: true
+			}
+		},
+		submitHandler: function(form){
+			startgame();
 		}
 	});
 });
@@ -646,6 +698,8 @@ function loginValidate() {
             valid = true; 
         }
     }
+	var form = $("#login-form");
+	form[0].reset();
 	if (valid){
 		var output = document.getElementById('LoginOut');
 		output.innerHTML = username;
