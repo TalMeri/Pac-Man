@@ -78,14 +78,6 @@ function Start() {
 			) {
 				board[i][j] = 4;
 			}
-			else if(((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))&& monster_remain>0){
-				monsters[numberM-monster_remain].prev=board[i][j];
-				board[i][j]=monsterColor;
-				monsters[numberM-monster_remain].i=i;
-				monsters[numberM-monster_remain].j=j;
-				monster_remain--;
-				monsterColor++;
-			}
 			else if(i==4 && j==4){
 				board[i][j]=300;
 				star.i=i;
@@ -117,8 +109,7 @@ function Start() {
 						food15--;
 						board[i][j] = 15;
 					}
-					
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt ) {
+				}else if ((randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) && !((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))) {
 					shape.i = i;
 					shape.j = j;
 					startPosition.i=i;
@@ -129,6 +120,13 @@ function Start() {
 					board[i][j] = 0;
 				}
 				cnt--;
+			}if(((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))&& monster_remain>0){
+			monsters[numberM-monster_remain].prev=board[i][j];
+			board[i][j]=monsterColor;
+			monsters[numberM-monster_remain].i=i;
+			monsters[numberM-monster_remain].j=j;
+			monster_remain--;
+			monsterColor++;
 			}
 		}
 	}
@@ -612,9 +610,9 @@ $(function(){
 		return this.optional( element ) || !(users.includes(value));
 	}, "User allready exist" );
 
-	$.validator.addMethod( "keyexist", function( value, element ) {
-		return this.optional( element ) || !(value==up.key && value==down.key && value==right.key && value==left.key);
-	}, "Key allready choosen" );
+	$.validator.addMethod( "notEqualTo", function( value, element, param ) {
+		return this.optional( element ) || !$.validator.methods.equalTo.call( this, value, element, param );
+	}, "Please enter a different value, values must not be the same." );
 
 
 	$("#register-form").validate({
@@ -670,17 +668,20 @@ $(function(){
 	});
 	$("#setting-form").validate({
 		rules: {
-			keyup:{
-				keyexist: true
-			},
 			keydown:{
-				keyexist: true
+				notEqualTo: "#Up",
+	//			notEqualTo: "#Left",
+	//			notEqualTo: "#Right"
 			},
 			keyright:{
-				keyexist: true
+				notEqualTo: "#Down",
+	//			notEqualTo: "#Left",
+				notEqualTo: "#Up"
 			},
 			keyleft:{
-				keyexist: true
+				notEqualTo: "#Down",
+				notEqualTo: "#Up",
+				notEqualTo: "#Right"
 			}
 		},
 		submitHandler: function(form){
