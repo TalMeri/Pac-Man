@@ -14,7 +14,9 @@ body {
 	align-items: center;
 	font-size: 15px;
     background: black;
-    color:white;	
+    color:white;
+    display: flex;
+    flex-direction: column;	
 }
 #topBar{
     background: black;
@@ -30,6 +32,9 @@ body {
 #main{
     position: relative;
 	margin-top: 100px;
+    flex: 1 0 auto;
+    min-height: 600px;
+    min-width: 400px;
 }
 .menu
 {
@@ -78,10 +83,14 @@ button, #submitLogin, #randombtn, #startbtn {
 	outline: none;
 }
 #Welcome button{
-    width: 16%;
+    width:200px;
 }
 #Register button ,#submitLogin, #randombtn, #startbtn{
     width:30%;
+    
+}
+#randombtn, #startbtn, #Welcome button{
+   margin-left: 8px;
 }
 button:hover, #submitLogin:hover, #randombtn:hover, #startbtn:hover{
 	background:#424242;
@@ -242,13 +251,13 @@ input, textarea {
     canvas {
       border: 2px solid blue;
   }   
-  #LoginName,#hearts{
+/*  #LoginName,#hearts{
       float: left;
   }
   .topbar-Game {
       float: left;
       width: 20%;
-    }
+    }*/
     .col {
         float: left;
         width: 33.3%;
@@ -262,7 +271,7 @@ input, textarea {
         float: left;
         width: 25%;
     }
-    
+  
     /* Clear floats after the columns */
     .topBarG:after {
       content: "";
@@ -298,7 +307,20 @@ input, textarea {
         padding-right: 24px;
         padding-top:5px;
     }
-
-
+    #Footer{
+        flex-shrink: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .col-setting{
+        float: left;
+        width: 25%;
+    }
+    .col-game{
+        float: left;
+        width:50%;
+    }
 
 

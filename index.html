@@ -126,28 +126,49 @@
 
 		<div id="Game" class="screen" style="display: none;">
 			<h1>The PAC-MAN Game</h1>
-			<div class="topBarG">
-		<div class="topbar-Game" id="LoginName"><p>Hello, <span id="LoginOut"></span></p></div>
-		<div class="topbar-Game" id="hearts"><img id="1" src=heart.png height="20px"/><img id="2" src=heart.png height="20px"/><img id="3" src=heart.png height="20px"/><img id="4" src=heart.png height="20px"/><img id="5" src=heart.png height="20px"/></div>
-		<div class="topbar-Game" id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
-		</div>
-		<div class="topbar-Game" id="time">
-			<label for="lblTime">TIMER:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div class="topbar-Game" id="timeLeft">
-			<label for="lblTime1">TIME LEFT:</label>
-			<input id="lblTime1" type="text"/>
-		</div>
+			<div class="row">
+				<div class="col-setting" >
+					<div id="LoginName"><p>Hello, <span id="LoginOut"></span></p></div>
+				<div class="topbar-Game" id="hearts"><img id="1" src=heart.png height="20px"/><img id="2" src=heart.png height="20px"/><img id="3" src=heart.png height="20px"/><img id="4" src=heart.png height="20px"/><img id="5" src=heart.png height="20px"/></div>
+				<div class="topbar-Game" id="score">
+					<label for="lblScore">SCORE:</label>
+					<input id="lblScore" type="text" />
+				</div>
+				<div class="topbar-Game" id="time">
+					<label for="lblTime">TIMER:</label>
+					<input id="lblTime" type="text" />
+				</div>
+				<div class="topbar-Game" id="timeLeft">
+					<label for="lblTime1">TIME LEFT:</label>
+					<input id="lblTime1" type="text"/>
+				</div></div>
+				<div class="col-game">
+				<div id="game"><canvas id="canvas" height="600" width="600"></canvas></div></div>
+				<div class="col-setting">
+					<label class="settingLable" for="Up">UP</label>
+					<input type="text" id="Up" value="ArrowUp" name="keyup" readonly>
+					<label class="settingLable" for="Down">DOWN</label>
+					<input type="text" id="Down" value="ArrowDown" name="keydown" readonly>
+					<label class="settingLable" for="Left">LEFT</label>
+					<input type="text" id="Left" value="ArrowLeft" name="keyleft" readonly>
+					<label class="settingLable" for="Right">RIGHT</label>
+					<input type="text" id="Right" value="ArrowRight" name="keyright" readonly>
+					<label class="settingLable" id="labelBall" for="BallRange">Balls</label>
+					<input type="text" id="Left" value="70" name="" readonly>
+					<label class="SettingLable" for="5p">5 points</label>
+					<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')" readonly>
+					<label class="SettingLable" for="5p">15 points</label>
+					<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')" readonly>
+					<label class="SettingLable" for="5p">20 points</label>
+					<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')" readonly>
+					<label class="settingLable" for="Time">Time(sec)</label>
+					<input type="text" id="Right" value="60" name="keyright" readonly>
+					<label class="settingLable" for="numM">Monsters</label>
+					<input type="text" id="Right" value="2" name="keyright" readonly>
+				</div>
+			<div class="row">
+				<button onclick="newGame()">New Game</button>
 			</div>
-			<br/>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>
-		<br/>
-		<button onclick="newGame()">New Game</button>
 		<dialog class="box" id="winner"><h2>Winner!!!</h2><a class="close2" onclick="closeDialog('winner')">X</a>
 		</dialog>
 		<dialog class="box" id="better"><h2 id='text'></h2><a class="close2" onclick="closeDialog('better')">X</a>
@@ -155,7 +176,11 @@
 		<dialog class="box" id="loser"><h2 id='text'>Loser</h2><a class="close2" onclick="closeDialog('loser')">X</a>
 		</dialog>
 	</div>
+	
 </div> 
+<div id="Footer">
+	this site created by Tal and Stav. for more info contact us by email
+</div>
 	</body>
 	
 </html>
