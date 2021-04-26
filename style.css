@@ -86,7 +86,7 @@ button, #submitLogin, #randombtn, #startbtn {
 button:hover, #submitLogin:hover, #randombtn:hover, #startbtn:hover{
 	background:#424242;
 } 
-.RegisterLable, .LoginLable  {
+.RegisterLable, .LoginLable, .settingLable {
     float: left;
     width: 120px;
     padding-right: 24px;
@@ -103,6 +103,7 @@ input, textarea {
 	outline: none;
 	}
 	form {
+    font-weight:bold;
 	position: relative;
 	width: 600px;
 	border-radius: 30px;
@@ -135,6 +136,13 @@ input, textarea {
 		box-shadow: initial;
 	  -webkit-box-shadow: 0 0 0px 1000px lightgrey inset;
 	}
+    .form-inner input[type=color]{
+        -webkit-appearance: none;
+        border: none;
+        padding:0;
+        border-radius: 0px;
+        width: 40px;
+    }
     @media screen and (max-width: 600px) {
         form {
         width: 100%;
@@ -156,7 +164,6 @@ input, textarea {
         #selectA{
             float: left;
             width: 100px;
-            padding-right: 24px;
             padding-right: 24px;
         }
 
@@ -202,7 +209,7 @@ input, textarea {
         border:none;
     }
 
-    dialog .close {
+    dialog .close, .close2 {
         position: absolute;
         top: 10px;
         right: 30px;
@@ -215,14 +222,19 @@ input, textarea {
       dialog .close:hover {
         color: #99ff66;
       }
+      dialog .close2:hover {
+        color: #c1a4f7e0;
+      }
       dialog h2 {
-        margin-top: 0;
         color: #333;
       }
-      .error label{
+      .error label, .errorKey{
         float: none;
         width: 100%;
         margin-bottom: 7px;
+    }
+    .errorKey{
+        display: none;
     }
     #dob-day-error ,#dob-month-error, #dob-year-error{
         width:30px;
@@ -237,6 +249,19 @@ input, textarea {
       float: left;
       width: 20%;
     }
+    .col {
+        float: left;
+        width: 33.3%;
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 4px;
+      }
+    .row2 .col{
+        float: left;
+        width: 25%;
+    }
     
     /* Clear floats after the columns */
     .topBarG:after {
@@ -249,7 +274,30 @@ input, textarea {
       background:lightgrey;
       width: 50%;
     }
-
+    #labelBall{
+        font-weight:bold;
+        float: left;
+        width: 120px;
+        padding-right: 24px;
+    }
+    #BallRange{
+        font-family:inherit;
+        display: block;
+        width: 100%;
+        float: left;
+    }
+    #valBalss{
+        font-weight:bold;
+        float: right;
+        padding:15px;
+        padding-right: 24px;
+    }
+    #numM{
+        display: inline-block;
+        width: calc(100% - 120px);
+        padding-right: 24px;
+        padding-top:5px;
+    }
 
 
 

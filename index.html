@@ -33,15 +33,15 @@
 			<h1>Register</h1>
 			<form id="register-form" >
 				<div class="form-inner" >
-					<label class="RegisterLable" for="uname"><b>User Name</b></label>
+					<label class="RegisterLable" for="uname">User Name</label>
 					<input type="text" placeholder="Enter User Name" name="uname" id="username"><br/>
-					<label class="RegisterLable" for="pswd"><b>Password</b></label>
+					<label class="RegisterLable" for="pswd">Password</label>
 					<input type="password" placeholder="Enter Password" minlength="6" name="pswd" id="passwd"><br/>
-					<label class="RegisterLable" for="fname"><b>Full Name</b></label>
+					<label class="RegisterLable" for="fname">Full Name</label>
 					<input type="text" placeholder="Enter Full Name" name="fname"><br/>
-					<label class="RegisterLable" for="email"><b>E-mail</b></label>
+					<label class="RegisterLable" for="email">E-mail</label>
 					<input type="text" placeholder="Enter E-mail" name="email"><br/>
-					<label class="RegisterLable" id="selectA" for="uname"><b>Birth Date</b></label>
+					<label class="RegisterLable" id="selectA">Birth Date</label>
 					<div id="selectB">
 					<select name="day" id="dob-day"></select>
 					<select name="month" id="dob-month"></select>	
@@ -58,9 +58,9 @@
 			<h1>Login</h1>
 			<form id="login-form">
 				<div class="form-inner">
-					<label class="LoginLable" for="uname"><b>User Name</b></label>
+					<label class="LoginLable" for="uname">User Name</label>
 					<input type="text" placeholder="Enter User Name" name="uname" id="uname" required value=""><br/>
-					<label class="LoginLable" for="pswd"><b>Password</b></label>
+					<label class="LoginLable" for="pswd">Password</label>
 					<input type="password" placeholder="Enter Password" name="pswd" id="pswd" required value=""><br/>
 					<div id="buttonHolder">
 					<input class="submitLogin" id="submitLogin" type="button" onclick="loginValidate()" value="Login">
@@ -77,28 +77,40 @@
 			<h1>Setting</h1>
 			<form id = "setting-form">
 				<div class="form-inner">
-					<label>Press a key for UP</label>
+					<label class="settingLable" for="Up">Press a key for UP</label>
 					<input type="text" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp" name="keyup">
-					<label>Press a key for DOWN </label>
+					<label class="errorKey" id="UpError">Key is already taken</label>
+					<label class="settingLable" for="Down">Press a key for DOWN </label>
 					<input type="text" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown" name="keydown">
-					<label>Press a key for LEFT </label>
-					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft" name="keyleft">
-					<label>Press a key for RIGHT</label>
+					<label class="errorKey" id="DownError">Key is already taken</label>
+					<label class="settingLable" for="Left">Press a key for LEFT </label>
+					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" 
+					value="ArrowLeft" name="keyleft">
+					<label class="errorKey" id="LeftError">Key is already taken</label>
+					<label class="settingLable" for="Right">Press a key for RIGHT</label>
 					<input type="text" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight" name="keyright">
-					<label>Number of Balls:</label>
-					<input class="slider" id="BallRange" type="range" min="50" max="90" value="70" oninput="numBalls(this.id,'outB')">
-					<label>Value: <span id="outB" ></span></label>
-					<label>Color of Balls:</label>
-					<label>5 points</label>
-					<input id="5p" type=color value="#ff0000" oninput="pickColor('5p')">
-					<label>15 points</label>
-					<input id="15p" type=color value="#c6d83b" oninput="pickColor('15p')">
-					<label>25 points</label>
-					<input id="25p" type=color value="#38cc4a" oninput="pickColor('25p')">
-					<label>Time for game</label>
-					<input type="number" id="Time" min="60" oninput="TimeUpdate()" name="gametime">
-					<label> sec </label>
-					<label>Number of Monsters:</label>
+					<label class="errorKey" id="RightError">Key is already taken</label>
+					<div class="row">
+						<div class="col"><label class="settingLable" id="labelBall" for="BallRange">Number of Balls:</label></div>
+						<div class="col"><input class="slider" id="BallRange" type="range" min="50" max="90" value="70" oninput="numBalls(this.id,'outB')"></div>
+						<div class="col"><label id="valBalss">Value: <span id="outB" >70</span></label></div>
+					</div>
+					<div class="row2">
+						<div class="col"><label class="SettingLable">Color of Balls:</label></div>
+						<div class="col">
+						<label>5 points</label>
+						<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')"></div>
+						<div class="col">
+						<label>15 points</label>
+						<input id="15p" type=color value="#7D96F2" oninput="pickColor('15p')"></div>
+						<div class="col">
+						<label>25 points</label>
+						<input id="25p" type=color value="#FF6B6B" oninput="pickColor('25p')"></div>
+					</div>
+
+					<label class="settingLable" for="Time">Time for game (sec)</label>
+					<input type="number" id="Time" min="60" oninput="TimeUpdate()" name="gametime" value="60">
+					<label class="settingLable" for="numM">Number of Monsters:</label>
 					<select id="numM" oninput="numMonster()">
 						<option value="1">1</option>
 						<option selected="selected" value="2">2</option>
@@ -136,11 +148,11 @@
 		</div>
 		<br/>
 		<button onclick="newGame()">New Game</button>
-		<dialog class="box" id="winner"><h2>Winner!!!</h2><a class="close" onclick="closeDialog('winner')">X</a>
+		<dialog class="box" id="winner"><h2>Winner!!!</h2><a class="close2" onclick="closeDialog('winner')">X</a>
 		</dialog>
-		<dialog class="box" id="better"><h2 id='text'></h2><a class="close" onclick="closeDialog('better')">X</a>
+		<dialog class="box" id="better"><h2 id='text'></h2><a class="close2" onclick="closeDialog('better')">X</a>
 		</dialog>
-		<dialog class="box" id="loser"><h2 id='text'>Loser</h2><a class="close" onclick="closeDialog('loser')">X</a>
+		<dialog class="box" id="loser"><h2 id='text'>Loser</h2><a class="close2" onclick="closeDialog('loser')">X</a>
 		</dialog>
 	</div>
 </div> 
