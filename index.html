@@ -17,7 +17,7 @@
 				<a class="Lwelcome" onclick="openDisplay('Welcome')">Welcome</a>
 				<a class="Lregister" onclick="openDisplay('Register')">Register</a>
 				<a class="Llogin" onclick="openDisplay('Login')">Login</a>
-				<a class="Labout" onclick="openDisplay('About')">About</a>
+				<a class="Labout" onclick="openDialog('About')">About</a>
 			</div>
 		</div>
 
@@ -184,7 +184,12 @@
 		</dialog>
 	</div>
 	
-</div> 
+		</div>
+		
+		<dialog class="box" id="About"><h2>HO NO :(</h2><a class="close" onclick="closeDialog('About')">X</a>
+			<p>User Name and Password dosen't exsit</br><b>Please Try Again</b></p>
+		</dialog>
+
 <div id="Footer">
 	this site created by Tal and Stav. for more info contact us by email
 </div>

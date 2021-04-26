@@ -680,6 +680,11 @@ $(function(){
 			startgame();
 		}
 	});
+	window.onclick = function(event) {
+		if (event.target == document.getElementById("About")) {
+		  closeDialog("About");
+		}
+	  }
 });
 
 function loginValidate() {
@@ -708,6 +713,7 @@ function openDialog(ID){
 }
 function closeDialog(ID){
 	document.getElementById(ID).close();
+	
 }
 function changeKey(keyToChange,event){
 	var val = event.key;
