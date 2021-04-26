@@ -13,15 +13,16 @@ var time_elapsed;
 var interval;
 var users = ["k"];
 var passwords = ["k"];
+var keys=["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"];
 var up=38;
 var down=40;
 var left=37;
 var right=39;
 var numberB=70;
 var numberM=2;
-var ball5p="#ff0000";
-var ball15p="#c6d83b";
-var ball25p="#38cc4a";
+var ball5p="#8b467b";
+var ball15p="#7D96F2";
+var ball25p="#FF6B6B";
 var face=4;
 var score = 0;
 var numLive=5;
@@ -32,6 +33,16 @@ var pillLeft=2;
 var clockleft=1;
 
 function startgame(){
+	document.getElementById("Up1").value=document.getElementById("Up").value;
+	document.getElementById("Down1").value=document.getElementById("Down").value;
+	document.getElementById("Left1").value=document.getElementById("Left").value;
+	document.getElementById("Right1").value=document.getElementById("Right").value;
+	document.getElementById("Balls1").value=numberB;
+	document.getElementById("mon1").value = numberM;
+	document.getElementById("5p1").value = ball5p;
+	document.getElementById("15p1").value = ball15p;
+	document.getElementById("25p1").value = ball25p;
+	document.getElementById("Time1").value = gametime;
 	openDisplay("Game");
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
@@ -120,13 +131,6 @@ function Start() {
 					board[i][j] = 0;
 				}
 				cnt--;
-			}if(((i==0 && j==0) || (i==0 && j==9) || (i==9 && j==0) ||(i==9 && j==9))&& monster_remain>0){
-			monsters[numberM-monster_remain].prev=board[i][j];
-			board[i][j]=monsterColor;
-			monsters[numberM-monster_remain].i=i;
-			monsters[numberM-monster_remain].j=j;
-			monster_remain--;
-			monsterColor++;
 			}
 		}
 	}
@@ -153,6 +157,18 @@ function Start() {
 		else{
 			food15--;
 			board[emptyCell[0]][emptyCell[1]] = 15;
+		}
+	}
+	for (var j=0 ;j<=9;j=j+9){
+		for(var m=0; m<=9;m=m+9){
+			if(monster_remain>0){
+				monsters[numberM-monster_remain].prev=board[j][m];
+				board[j][m]=monsterColor;
+				monsters[numberM-monster_remain].i=j;
+				monsters[numberM-monster_remain].j=m;
+				monster_remain--;
+				monsterColor++;
+			}
 		}
 	}
 	if(pacman_remain>0){
@@ -213,6 +229,7 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
+	lblTime1.value=gametime-time_elapsed;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -400,7 +417,6 @@ function UpdatePositionM(){
 		if (board[monsters[i].i][monsters[i].j] ==2){
 			for (var k=0 ; k<monsters.length ; k++){
 				board[monsters[k].i][monsters[k].j]=monsters[k].prev;
-				monsters[k].prev=0;
 			}
 			board[shape.i][shape.j]=0;
 			meetMonster();
@@ -433,6 +449,7 @@ function meetMonster(){
 		for (var j=0 ;j<=9;j=j+9){
 			for(var m=0; m<=9;m=m+9){
 				if(monster_remain>0){
+					monsters[numberM-monster_remain].prev=board[j][m];
 					board[j][m]=monsterColor;
 					monsters[numberM-monster_remain].i=j;
 					monsters[numberM-monster_remain].j=m;
@@ -488,6 +505,11 @@ function meetStar(){
 	
 }
 function UpdatePosition() {
+	if(document.getElementById("Game").style.display=="none"){
+		window.clearInterval(interval);
+		window.clearInterval(interval1);
+		window.clearInterval(interval2);
+	}
 	if(foodLeft==0){
 		window.clearInterval(interval);
 		window.clearInterval(interval1);
@@ -532,7 +554,6 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 100 || board[shape.i][shape.j] == 101 || board[shape.i][shape.j] == 102 ||board[shape.i][shape.j] == 103){
 		for (var k=0 ; k<monsters.length ; k++){
 			board[monsters[k].i][monsters[k].j]=monsters[k].prev;
-			monsters[k].prev=0;
 		}
 		meetMonster();
 	}
@@ -555,13 +576,7 @@ function UpdatePosition() {
 	}
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-//	if (score >= 20 && time_elapsed <= 10) {
-//		pac_color = "green";
-//	}
-	//if (score == 50) {
-//		window.clearInterval(interval);
 	if((currentTime-start_time)/1000<=gametime)
-	//} else {
 		Draw();
 	else {
 		window.clearInterval(interval);
@@ -574,7 +589,6 @@ function UpdatePosition() {
 		else
 			openDialog('winner');
 	}
-	//}
 }
 function openDisplay(clicked_id){
 	var screens=document.getElementsByClassName("screen");
@@ -609,11 +623,6 @@ $(function(){
 	$.validator.addMethod( "userexist", function( value, element ) {
 		return this.optional( element ) || !(users.includes(value));
 	}, "User allready exist" );
-
-	$.validator.addMethod( "notEqualTo", function( value, element, param ) {
-		return this.optional( element ) || !$.validator.methods.equalTo.call( this, value, element, param );
-	}, "Please enter a different value, values must not be the same." );
-
 
 	$("#register-form").validate({
 		rules: {
@@ -667,23 +676,6 @@ $(function(){
 		}
 	});
 	$("#setting-form").validate({
-		rules: {
-			keydown:{
-				notEqualTo: "#Up",
-	//			notEqualTo: "#Left",
-	//			notEqualTo: "#Right"
-			},
-			keyright:{
-				notEqualTo: "#Down",
-	//			notEqualTo: "#Left",
-				notEqualTo: "#Up"
-			},
-			keyleft:{
-				notEqualTo: "#Down",
-				notEqualTo: "#Up",
-				notEqualTo: "#Right"
-			}
-		},
 		submitHandler: function(form){
 			startgame();
 		}
@@ -704,6 +696,7 @@ function loginValidate() {
 	if (valid){
 		var output = document.getElementById('LoginOut');
 		output.innerHTML = username;
+		resetOption();
 		openDisplay("Setting");
 	}
 	else{
@@ -720,15 +713,58 @@ function changeKey(keyToChange,event){
 	var val = event.key;
 	if (val==" ")
 		val="Space"
-	if(keyToChange=="Up")
-		up=event.keyCode;
-	if(keyToChange=="Down")
-		down=event.keyCode;
-	if(keyToChange=="Left")
-		left=event.keyCode;
-	if(keyToChange=="Right")
-		right=event.keyCode;
-	document.getElementById(keyToChange).value= val;
+	if(keyToChange=="Up"){
+		keys.splice(0,1);
+		if (keys.includes(val)){
+			document.getElementById("UpError").style.display="";
+			keys.splice(0,0,up);
+		}
+		else{
+			document.getElementById("UpError").style.display="none";
+			up=event.keyCode;
+			keys.splice(0,0,val)
+			document.getElementById(keyToChange).value= val;
+		}
+	}
+	if(keyToChange=="Down"){
+		keys.splice(1,1);
+		if (keys.includes(val)){
+			document.getElementById("DownError").style.display="";
+			keys.splice(1,0,down);
+		}
+		else{
+			document.getElementById("DownError").style.display="none";
+			down=event.keyCode;
+			keys.splice(1,0,val)
+			document.getElementById(keyToChange).value= val;
+		}
+	}
+	if(keyToChange=="Left"){
+		keys.splice(2,1);
+		if (keys.includes(val)){
+			document.getElementById("LeftError").style.display="";
+			keys.splice(2,0,left);
+		}
+		else{
+			document.getElementById("LeftError").style.display="none";
+			left=event.keyCode;
+			keys.splice(2,0,val)
+			document.getElementById(keyToChange).value= val;
+		}
+	}
+	if(keyToChange=="Right"){
+		keys.splice(3,1);
+		if (keys.includes(val)){
+			document.getElementById("RightError").style.display="";
+			keys.splice(3,0,right);
+		}
+		else{
+			document.getElementById("RightError").style.display="none";
+			right=event.keyCode;
+			keys.splice(3,0,val)
+			document.getElementById(keyToChange).value= val;
+		}
+	}
 }
 function numBalls(RangeVal,Out){
 	var output = document.getElementById(Out);
@@ -790,8 +826,32 @@ function randomPick(){
 }
 
 function TimeUpdate(){
-	var val=document.getElementById("Time").value;
+	var val=document.getElementById("time").value;
 	gametime=val;
+
+}
+function resetOption(){
+	keys=["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"];
+	up=38;
+	down=40;
+	left=37;
+	right=39;
+	document.getElementById("Up").value="ArrowUp";
+	document.getElementById("Down").value="ArrowDown";
+	document.getElementById("Left").value="ArrowLeft";
+	document.getElementById("Right").value="ArrowRight";
+	numberB=70;
+	document.getElementById("BallRange").value=numberB;
+	numberM=2;
+	document.getElementById("numM").value = numberM;
+	ball5p="#ff0000";
+	document.getElementById("5p").value = ball5p;
+	ball15p="#c6d83b";
+	document.getElementById("15p").value = ball15p;
+	ball25p="#38cc4a";
+	document.getElementById("25p").value = ball25p;
+	gametime=60;
+	document.getElementById("Time").value = gametime;
 }
 
 $("[type='number']").keypress(function (evt) {

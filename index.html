@@ -79,17 +79,24 @@
 				<div class="form-inner">
 					<label class="settingLable" for="Up">Press a key for UP</label>
 					<input type="text" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp" name="keyup">
-					<label class="errorKey" id="UpError">Key is already taken</label>
+					<div id="UpError" style="display: none;">
+						<label>Key is already taken</label>
+					</div>
 					<label class="settingLable" for="Down">Press a key for DOWN </label>
 					<input type="text" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown" name="keydown">
-					<label class="errorKey" id="DownError">Key is already taken</label>
+					<div id="DownError" style="display: none;">
+						<label>Key is already taken</label>
+					</div>
 					<label class="settingLable" for="Left">Press a key for LEFT </label>
-					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" 
-					value="ArrowLeft" name="keyleft">
-					<label class="errorKey" id="LeftError">Key is already taken</label>
+					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft" name="keyleft">
+					<div id="LeftError" style="display: none;">
+						<label>Key is already taken</label>
+					</div>
 					<label class="settingLable" for="Right">Press a key for RIGHT</label>
 					<input type="text" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight" name="keyright">
-					<label class="errorKey" id="RightError">Key is already taken</label>
+					<div id="RightError" style="display: none;">
+						<label>Key is already taken</label>
+					</div>
 					<div class="row">
 						<div class="col"><label class="settingLable" id="labelBall" for="BallRange">Number of Balls:</label></div>
 						<div class="col"><input class="slider" id="BallRange" type="range" min="50" max="90" value="70" oninput="numBalls(this.id,'outB')"></div>
@@ -146,25 +153,25 @@
 				<div id="game"><canvas id="canvas" height="600" width="600"></canvas></div></div>
 				<div class="col-setting">
 					<label class="settingLable" for="Up">UP</label>
-					<input type="text" id="Up" value="ArrowUp" name="keyup" readonly>
+					<input type="text" id="Up1" value="ArrowUp" name="keyup" readonly>
 					<label class="settingLable" for="Down">DOWN</label>
-					<input type="text" id="Down" value="ArrowDown" name="keydown" readonly>
+					<input type="text" id="Down1" value="ArrowDown" name="keydown" readonly>
 					<label class="settingLable" for="Left">LEFT</label>
-					<input type="text" id="Left" value="ArrowLeft" name="keyleft" readonly>
+					<input type="text" id="Left1" value="ArrowLeft" name="keyleft" readonly>
 					<label class="settingLable" for="Right">RIGHT</label>
-					<input type="text" id="Right" value="ArrowRight" name="keyright" readonly>
+					<input type="text" id="Right1" value="ArrowRight" name="keyright" readonly>
 					<label class="settingLable" id="labelBall" for="BallRange">Balls</label>
-					<input type="text" id="Left" value="70" name="" readonly>
+					<input type="text" id="Balls1" value="70" name="" readonly>
 					<label class="SettingLable" for="5p">5 points</label>
-					<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')" readonly>
+					<input id="5p1" type=color value="#8b467b" readonly>
 					<label class="SettingLable" for="5p">15 points</label>
-					<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')" readonly>
+					<input id="15p1" type=color value="#8b467b" readonly>
 					<label class="SettingLable" for="5p">20 points</label>
-					<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')" readonly>
+					<input id="25p1" type=color value="#8b467b"readonly>
 					<label class="settingLable" for="Time">Time(sec)</label>
-					<input type="text" id="Right" value="60" name="keyright" readonly>
+					<input type="text" id="Time1" value="60" readonly>
 					<label class="settingLable" for="numM">Monsters</label>
-					<input type="text" id="Right" value="2" name="keyright" readonly>
+					<input type="text" id="mon1" value="2" name="keyright" readonly>
 				</div>
 			<div class="row">
 				<button onclick="newGame()">New Game</button>
