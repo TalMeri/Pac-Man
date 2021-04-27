@@ -1,9 +1,7 @@
 * {
 	box-sizing: border-box;
-    /*background: #000 !important;
-    color: #0f0 !important;
-    outline: solid #f00 1px !important;*/
   }
+
 body {
 	margin: 0;
 	width: 100%;
@@ -18,6 +16,7 @@ body {
     display: flex;
     flex-direction: column;	
 }
+
 #topBar{
     background: black;
     position: fixed;
@@ -29,13 +28,15 @@ body {
     color: white;
     padding: 8px 5px 5px 5px;
 }
+
 #main{
     position: relative;
-	margin-top: 100px;
+	margin-top: 60px;
     flex: 1 0 auto;
-    min-height: 600px;
+    min-height: 500px;
     min-width: 400px;
 }
+
 .menu
 {
     width: 100%;
@@ -43,32 +44,39 @@ body {
 	height: 50px;
 	padding:5px 5px 5px 5px;
 }
-.screen{
-    text-align: center;
-    margin-top: 40px;
-    padding: 5px 5px 5px 5px;
-}
 
 .menu a{
 	text-decoration: none;
 	padding: 30px;
     cursor: context-menu;
 }
+
 a.Lwelcome:hover, #Setting h1{
     color:pink;
 }
+
 a.Lregister:hover ,#Register h1{
     color:#ffcc66;
 }
+
 a.Llogin:hover ,#Login h1{
     color:#99ff66;
 }
+
 a.Labout:hover{
     color:#4ddbff;
 }
+
 #Game h1{
     color:#c1a4f7e0;	
 }
+
+.screen{
+    text-align: center;
+    margin-top: 40px;
+    padding: 5px 5px 5px 5px;
+}
+
 button, #submitLogin, #randombtn, #startbtn {
 	padding: 10px;
 	margin-top: 20px;
@@ -82,245 +90,302 @@ button, #submitLogin, #randombtn, #startbtn {
 	color: #fff;
 	outline: none;
 }
+
 #Welcome button{
     width:200px;
 }
+
 #Register button ,#submitLogin, #randombtn, #startbtn{
-    width:30%;
-    
+    width:30%;  
 }
+
 #randombtn, #startbtn, #Welcome button{
    margin-left: 8px;
 }
+
 button:hover, #submitLogin:hover, #randombtn:hover, #startbtn:hover{
 	background:#424242;
 } 
+
 .RegisterLable, .LoginLable, .settingLable {
     float: left;
     width: 120px;
     padding-right: 24px;
+    font-weight:bold;
 }
-#buttonHolder{
+
+.LoginLable, .RegisterLable{
+    margin-top:20px;
+}
+
+.buttonHolder{
     display: flex;
     width:100%;
     text-align: center;
 }
+
 input, textarea { 
 	outline: none;
 }
-input, textarea { 
-	outline: none;
-	}
-	form {
-    font-weight:bold;
+
+form {
 	position: relative;
 	width: 600px;
 	border-radius: 30px;
 	text-align: center;
 	vertical-align: middle;
 	display: inline-block;
-	}
-	.form-inner {
+    margin:0;
+    padding:0;
+}
+
+.form-inner {
 	padding: 40px;
-	}
-	.form-inner input,
-	.form-inner textarea
-     {
+}
+
+.form-inner input,
+.form-inner textarea{
 	font-family:inherit;
 	display: block;
 	width: 100%;
     float: left;
     width: calc(100% - 120px);
 	padding: 15px;
-	margin-bottom: 10px;
+	margin-top: 10px;
+    margin-bottom: 5px;
 	border: none;
 	border-radius: 20px;
 	background: lightgrey;
-	}
-	.form-inner textarea {
+}
+
+.form-inner textarea {
 	resize: none;
-	}
-	input:-webkit-autofill,
-	textarea:-webkit-autofill {
-		box-shadow: initial;
-	  -webkit-box-shadow: 0 0 0px 1000px lightgrey inset;
-	}
-    .form-inner input[type=color]{
-        -webkit-appearance: none;
-        border: none;
-        padding:0;
-        border-radius: 0px;
-        width: 40px;
-    }
-    @media screen and (max-width: 600px) {
-        form {
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+	box-shadow: initial;
+	-webkit-box-shadow: 0 0 0px 1000px lightgrey inset;
+}
+
+.form-inner input[type=color]{
+    -webkit-appearance: none;
+    border: none;
+    padding:0;
+    border-radius: 0px;
+    width: 40px;
+    margin-top: 0;
+}
+ 
+canvas{
+    width: 100%;
+    border: 2px solid blue;
+}
+
+select {
+    height: 30px;
+    word-wrap: break-word;
+    font-family:inherit;
+    border-radius: 30px;
+    background: lightgrey;
+}
+
+#selectB{
+    display: inline-block;
+    width: 100%-200px;
+    margin-top: 10px;
+}
+
+.submitLogin, #newGame{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;  
+}
+
+dialog::backdrop {
+    background: black;
+    opacity: 0.7;
+}
+
+dialog{
+    border-radius: 20px;
+    background:lightgrey;
+    width: 300px;
+    height: 170px;
+    overflow: auto;
+    border:none;
+}
+
+#About{
+    width: 330px;
+    height: 400px;
+}
+
+#winner h2, #better h2, #loser h2{
+    padding:30px;
+}
+
+dialog .close, .close2, .close1 {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+dialog .close:hover {
+    color: #99ff66;
+}
+
+dialog .close2:hover {
+    color: #c1a4f7e0;
+}
+
+dialog .close1:hover{
+    color:#4ddbff;
+}
+
+dialog h2 {
+    color: #333;
+}
+      
+#dob-day-error ,#dob-month-error, #dob-year-error{
+    width:30px;
+
+}
+
+.col {
+    float: left;
+    width: 33.3%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+    text-align: center;
+}
+
+.row2 .col{
+    float: left;
+    width: 25%;
+}
+
+.col-setting{
+    padding:10px;
+}
+
+.col-setting input{
+    border-radius: 20px;
+    background:lightgrey;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.col-setting label{
+    float: left;
+    width: 100%;
+    display: block;
+}
+
+#labelBall{
+    font-weight:bold;
+    float: left;
+    width: 120px;
+    padding-right: 24px;
+}
+
+#BallRange{
+    font-family:inherit;
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+#cBalls{
+    font-weight: bold;
+}
+
+#valBalss{
+    float: right;
+    padding:15px;
+    padding-right: 24px;
+}
+
+#numM{
+    display: inline-block;
+    width: calc(100% - 120px);
+    padding-right: 24px;
+    padding-top:5px;
+}
+
+#Footer{
+    flex-shrink: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.col-setting{
+    float: left;
+    width: 25%;
+}
+
+.col-game{
+    float: left;
+    width:50%;
+}
+
+@media screen and (max-width: 600px) {
+    form {
         width: 100%;
-        }
-        .form-inner input,
-        .form-inner textarea {
-            width: 100%;
-        }
-        label {
-            float: left;
-            width: 90px;
-            padding-right: 24px;
-        }
-        	
-        #selectB{
-            display: inline-block;
-            width: calc(100% - 90px);
-        }
-        #selectA{
-            float: left;
-            width: 100px;
-            padding-right: 24px;
-        }
-
-        .menu a{
-	        text-decoration: none;
-	        padding: 10px;
-            cursor: context-menu;
-        }
-        #Welcome button{
-            width: 25%;
-        }
-        .error{
-            width:100%;
-        }
-
-    }
-    select {
-        height: 30px;
-        word-wrap: break-word;
-        font-family:inherit;
-        border-radius: 30px;
-        background: lightgrey;
-    }
-    #selectB{
-        display: inline-block;
-        width: 100%-200px;
-    }
-    .submitLogin{
-        display: block;
-        margin-right: auto;
-        margin-left: auto;  
-    }
-    dialog::backdrop {
-        background: black;
-        opacity: 0.7;
-    }
-    dialog{
-        border-radius: 20px;
-        background:lightgrey;
-        width: 300px;
-        height: 170px;
-        overflow: auto;
-        border:none;
     }
 
-    dialog .close, .close2 {
-        position: absolute;
-        top: 10px;
-        right: 30px;
-        transition: all 200ms;
-        font-size: 30px;
-        font-weight: bold;
-        text-decoration: none;
-        color: #333;
-      }
-      dialog .close:hover {
-        color: #99ff66;
-      }
-      dialog .close2:hover {
-        color: #c1a4f7e0;
-      }
-      dialog h2 {
-        color: #333;
-      }
-      .error label, .errorKey{
+    .form-inner input,
+    .form-inner textarea {
+        width: 100%;
+    }
+
+    label {
+        float: left;
+        width: 90px;
+        padding-right: 24px;
+    }
+
+    .RegisterLable, .LoginLable, .settingLable{
         float: none;
-        width: 100%;
-        margin-bottom: 7px;
-    }
-    .errorKey{
-        display: none;
-    }
-    #dob-day-error ,#dob-month-error, #dob-year-error{
-        width:30px;
-    }
-    canvas {
-      border: 2px solid blue;
-  }   
-/*  #LoginName,#hearts{
-      float: left;
-  }
-  .topbar-Game {
-      float: left;
-      width: 20%;
-    }*/
-    .col {
-        float: left;
-        width: 33.3%;
-    }
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0 4px;
-      }
-    .row2 .col{
-        float: left;
-        width: 25%;
-    }
-  
-    /* Clear floats after the columns */
-    .topBarG:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .topbar-Game input{
-      border-radius: 20px;
-      background:lightgrey;
-      width: 50%;
-    }
-    #labelBall{
-        font-weight:bold;
-        float: left;
-        width: 120px;
-        padding-right: 24px;
-    }
-    #BallRange{
-        font-family:inherit;
         display: block;
         width: 100%;
-        float: left;
     }
-    #valBalss{
-        font-weight:bold;
-        float: right;
-        padding:15px;
+
+    #startbtn, #randombtn{
+        width: 40%;
+    }
+    	
+    #selectA{
+        float: left;
+        width: 100px;
         padding-right: 24px;
     }
-    #numM{
-        display: inline-block;
-        width: calc(100% - 120px);
-        padding-right: 24px;
-        padding-top:5px;
+
+    .menu a{
+	    text-decoration: none;
+	    padding: 10px;
+        cursor: context-menu;
     }
-    #Footer{
-        flex-shrink: 0;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-    }
-    .col-setting{
-        float: left;
+
+    #Welcome button{
         width: 25%;
     }
-    .col-game{
-        float: left;
-        width:50%;
+
+    .error{
+        width:100%;
     }
+}
 
 

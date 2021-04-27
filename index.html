@@ -62,12 +62,12 @@
 					<input type="text" placeholder="Enter User Name" name="uname" id="uname" required value=""><br/>
 					<label class="LoginLable" for="pswd">Password</label>
 					<input type="password" placeholder="Enter Password" name="pswd" id="pswd" required value=""><br/>
-					<div id="buttonHolder">
+					<div class="buttonHolder">
 					<input class="submitLogin" id="submitLogin" type="button" onclick="loginValidate()" value="Login">
 					</div>
 				</div>
 			</form> 
-			<dialog class="box" id="mydialog"><h2>HO NO :(</h2><a class="close" onclick="closeDialog('mydialog')">X</a>
+			<dialog class="box" id="mydialog"><h2>HO NO &#128532;</h2><a class="close" onclick="closeDialog('mydialog')">X</a>
 			<p>User Name and Password dosen't exsit</br><b>Please Try Again</b></p>
 			</dialog>
 		
@@ -79,22 +79,22 @@
 				<div class="form-inner">
 					<label class="settingLable" for="Up">Press a key for UP</label>
 					<input type="text" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp" name="keyup">
-					<div id="UpError" style="display: none;">
+					<div class="errorKey" id="UpError" style="display: none;">
 						<label>Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Down">Press a key for DOWN </label>
 					<input type="text" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown" name="keydown">
-					<div id="DownError" style="display: none;">
+					<div class="errorKey" id="DownError" style="display: none;">
 						<label>Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Left">Press a key for LEFT </label>
 					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft" name="keyleft">
-					<div id="LeftError" style="display: none;">
+					<div class="errorKey" id="LeftError" style="display: none;">
 						<label>Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Right">Press a key for RIGHT</label>
 					<input type="text" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight" name="keyright">
-					<div id="RightError" style="display: none;">
+					<div class="errorKey" id="RightError" style="display: none;">
 						<label>Key is already taken</label>
 					</div>
 					<div class="row">
@@ -103,7 +103,7 @@
 						<div class="col"><label id="valBalss">Value: <span id="outB" >70</span></label></div>
 					</div>
 					<div class="row2">
-						<div class="col"><label class="SettingLable">Color of Balls:</label></div>
+						<div class="col"><label class="SettingLable" id="cBalls">Color of Balls:</label></div>
 						<div class="col">
 						<label>5 points</label>
 						<input id="5p" type=color value="#8b467b" oninput="pickColor('5p')"></div>
@@ -135,59 +135,59 @@
 			<h1>The PAC-MAN Game</h1>
 			<div class="row">
 				<div class="col-setting" >
-					<div id="LoginName"><p>Hello, <span id="LoginOut"></span></p></div>
-				<div class="topbar-Game" id="hearts"><img id="1" src=heart.png height="20px"/><img id="2" src=heart.png height="20px"/><img id="3" src=heart.png height="20px"/><img id="4" src=heart.png height="20px"/><img id="5" src=heart.png height="20px"/></div>
-				<div class="topbar-Game" id="score">
+					<div id="LoginName"><h2>Hello, <span id="LoginOut"></span></h2></div>
+				<div id="hearts"><img id="1" src=heart.png height="20px"/><img id="2" src=heart.png height="20px"/><img id="3" src=heart.png height="20px"/><img id="4" src=heart.png height="20px"/><img id="5" src=heart.png height="20px"/></div>
+				<div id="score">
 					<label for="lblScore">SCORE:</label>
 					<input id="lblScore" type="text" />
 				</div>
-				<div class="topbar-Game" id="time">
+				<div id="time">
 					<label for="lblTime">TIMER:</label>
 					<input id="lblTime" type="text" />
 				</div>
-				<div class="topbar-Game" id="timeLeft">
+				<div id="timeLeft">
 					<label for="lblTime1">TIME LEFT:</label>
 					<input id="lblTime1" type="text"/>
 				</div></div>
 				<div class="col-game">
 				<div id="game"><canvas id="canvas" height="600" width="600"></canvas></div></div>
 				<div class="col-setting">
-					<label class="settingLable" for="Up">UP</label>
+					<label class="topbar-Game" for="Up">UP</label>
 					<input type="text" id="Up1" value="ArrowUp" name="keyup" readonly>
-					<label class="settingLable" for="Down">DOWN</label>
+					<label class="topbar-Game" for="Down">DOWN</label>
 					<input type="text" id="Down1" value="ArrowDown" name="keydown" readonly>
-					<label class="settingLable" for="Left">LEFT</label>
+					<label class="topbar-Game" for="Left">LEFT</label>
 					<input type="text" id="Left1" value="ArrowLeft" name="keyleft" readonly>
-					<label class="settingLable" for="Right">RIGHT</label>
+					<label class="topbar-Game" for="Right">RIGHT</label>
 					<input type="text" id="Right1" value="ArrowRight" name="keyright" readonly>
-					<label class="settingLable" id="labelBall" for="BallRange">Balls</label>
+					<label class="topbar-Game"  for="BallRange">Balls</label>
 					<input type="text" id="Balls1" value="70" name="" readonly>
-					<label class="SettingLable" for="5p">5 points</label>
+					<label class="topbar-Game" for="5p">5 points</label>
 					<input id="5p1" type=color value="#8b467b" readonly>
-					<label class="SettingLable" for="5p">15 points</label>
+					<label class="topbar-Game" for="5p">15 points</label>
 					<input id="15p1" type=color value="#8b467b" readonly>
-					<label class="SettingLable" for="5p">20 points</label>
+					<label class="topbar-Game" for="5p">20 points</label>
 					<input id="25p1" type=color value="#8b467b"readonly>
-					<label class="settingLable" for="Time">Time(sec)</label>
+					<label class="topbar-Game" for="Time">Time(sec)</label>
 					<input type="text" id="Time1" value="60" readonly>
-					<label class="settingLable" for="numM">Monsters</label>
+					<label class="topbar-Game" for="numM">Monsters</label>
 					<input type="text" id="mon1" value="2" name="keyright" readonly>
 				</div>
-			<div class="row">
-				<button onclick="newGame()">New Game</button>
+			<div class="buttonHolder">
+				<button id="newGame" onclick="newGame()">New Game</button>
 			</div>
-		<dialog class="box" id="winner"><h2>Winner!!!</h2><a class="close2" onclick="closeDialog('winner')">X</a>
+		<dialog class="box" id="winner"><h2>Winner!!! &#127942;</h2><a class="close2" onclick="closeDialog('winner')">X</a>
 		</dialog>
 		<dialog class="box" id="better"><h2 id='text'></h2><a class="close2" onclick="closeDialog('better')">X</a>
 		</dialog>
-		<dialog class="box" id="loser"><h2 id='text'>Loser</h2><a class="close2" onclick="closeDialog('loser')">X</a>
+		<dialog class="box" id="loser"><h2 id='text'>Loser &#128532;</h2><a class="close2" onclick="closeDialog('loser')">X</a>
 		</dialog>
 	</div>
 	
 		</div>
 		
-		<dialog class="box" id="About"><h2>HO NO :(</h2><a class="close" onclick="closeDialog('About')">X</a>
-			<p>User Name and Password dosen't exsit</br><b>Please Try Again</b></p>
+		<dialog class="box" id="About"><h2>ABOUT US &#128526;</h2><a class="close1" onclick="closeDialog('About')">X</a>
+			<p><b>Stav Tsabari and Tal Meridor</b></p><p>For this site we use two plugin:</br><ul><li> dob picker - for the date picker in the setting.</li><li> validate - for validate the info in the register form.</li></ul></p>
 		</dialog>
 
 <div id="Footer">
