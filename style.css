@@ -274,10 +274,6 @@ dialog h2 {
     width: 25%;
 }
 
-.col-setting{
-    padding:10px;
-}
-
 .col-setting input{
     border-radius: 20px;
     background:lightgrey;
@@ -334,6 +330,7 @@ dialog h2 {
 .col-setting{
     float: left;
     width: 25%;
+    padding:10px;
 }
 
 .col-game{
@@ -355,6 +352,9 @@ dialog h2 {
         float: left;
         width: 90px;
         padding-right: 24px;
+    }
+    .error-key{
+        width: 100%;
     }
 
     .RegisterLable, .LoginLable, .settingLable{
