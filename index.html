@@ -80,17 +80,17 @@
 					<label class="settingLable" for="Up">Press a key for UP</label>
 					<input type="text" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp" name="keyup">
 					<div class="errorKey" id="UpError" style="display: none;">
-						<label>Key is already taken</label>
+						<label class="error-key">Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Down">Press a key for DOWN </label>
 					<input type="text" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown" name="keydown">
 					<div class="errorKey" id="DownError" style="display: none;">
-						<label>Key is already taken</label>
+						<label class="error-key">Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Left">Press a key for LEFT </label>
 					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft" name="keyleft">
 					<div class="errorKey" id="LeftError" style="display: none;">
-						<label>Key is already taken</label>
+						<label class="error-key">Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Right">Press a key for RIGHT</label>
 					<input type="text" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight" name="keyright">
@@ -172,7 +172,7 @@
 					<input type="text" id="Time1" value="60" readonly>
 					<label class="topbar-Game" for="numM">Monsters</label>
 					<input type="text" id="mon1" value="2" name="keyright" readonly>
-				</div>
+				</div></div>
 			<div class="buttonHolder">
 				<button id="newGame" onclick="newGame()">New Game</button>
 			</div>
@@ -191,7 +191,7 @@
 		</dialog>
 
 <div id="Footer">
-	this site created by Tal and Stav. for more info contact us by email
+	This site created by Tal and Stav. for more info contact us by email
 </div>
 	</body>
 	
