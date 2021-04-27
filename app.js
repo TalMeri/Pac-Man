@@ -10,6 +10,7 @@ var board;
 var pac_color;
 var start_time;
 var time_elapsed;
+var timepaused=0;
 var interval;
 var users = ["k"];
 var passwords = ["k"];
@@ -31,6 +32,7 @@ var gametime=60;
 var foodLeft=70;
 var pillLeft=2;
 var clockleft=1;
+var ispause=false;
 
 function startgame(){
 	document.getElementById("Up1").value=document.getElementById("Up").value;
@@ -62,6 +64,7 @@ function Start() {
 	pillLeft=2;
 	clockleft=1;
 	monsters=[];
+	timepaused=0;
 	var allMonsters = [monster1, monster2, monster3, monster4]
 	var food_remain = numberB;
 	var monster_remain = numberM;
@@ -398,34 +401,36 @@ function drawHand(context, width, x, y, endx, endy) {
 }
 
 function UpdatePositionM(){
-	var monsterColor=100;
-	var cantMoveTo=[4,100,101,102,103,300];
-	for (var i=0;i<monsters.length;i++){
-		board[monsters[i].i][monsters[i].j]=monsters[i].prev;
-		if(monsters[i].i>shape.i && monsters[i].i>0 && !(cantMoveTo.includes(board[monsters[i].i-1][monsters[i].j]))){
-			monsters[i].i--;
-		}
-		else if(monsters[i].i<shape.i && monsters[i].i<9 && !(cantMoveTo.includes(board[monsters[i].i+1][monsters[i].j]))){
-			monsters[i].i++;
-		}
-		else if (monsters[i].j>shape.j && monsters[i].j>0 && !(cantMoveTo.includes(board[monsters[i].i][monsters[i].j-1]))){
-			monsters[i].j--;
-		}
-		else if(monsters[i].j<shape.j && monsters[i].j<9 && !(cantMoveTo.includes(board[monsters[i].i][monsters[i].j+1]))){
-			monsters[i].j++;
-		}
-		if (board[monsters[i].i][monsters[i].j] ==2){
-			for (var k=0 ; k<monsters.length ; k++){
-				board[monsters[k].i][monsters[k].j]=monsters[k].prev;
+	if(ispause==false){
+		var monsterColor=100;
+		var cantMoveTo=[4,100,101,102,103,300];
+		for (var i=0;i<monsters.length;i++){
+			board[monsters[i].i][monsters[i].j]=monsters[i].prev;
+			if(monsters[i].i>shape.i && monsters[i].i>0 && !(cantMoveTo.includes(board[monsters[i].i-1][monsters[i].j]))){
+				monsters[i].i--;
 			}
-			board[shape.i][shape.j]=0;
-			meetMonster();
+			else if(monsters[i].i<shape.i && monsters[i].i<9 && !(cantMoveTo.includes(board[monsters[i].i+1][monsters[i].j]))){
+				monsters[i].i++;
+			}
+			else if (monsters[i].j>shape.j && monsters[i].j>0 && !(cantMoveTo.includes(board[monsters[i].i][monsters[i].j-1]))){
+				monsters[i].j--;
+			}
+			else if(monsters[i].j<shape.j && monsters[i].j<9 && !(cantMoveTo.includes(board[monsters[i].i][monsters[i].j+1]))){
+				monsters[i].j++;
+			}
+			if (board[monsters[i].i][monsters[i].j] ==2){
+				for (var k=0 ; k<monsters.length ; k++){
+					board[monsters[k].i][monsters[k].j]=monsters[k].prev;
+				}
+				board[shape.i][shape.j]=0;
+				meetMonster();
+			}
+			else{
+				monsters[i].prev=board[monsters[i].i][monsters[i].j];
+				board[monsters[i].i][monsters[i].j]=monsterColor
+			}
+			monsterColor++;
 		}
-		else{
-			monsters[i].prev=board[monsters[i].i][monsters[i].j];
-			board[monsters[i].i][monsters[i].j]=monsterColor
-		}
-		monsterColor++;
 	}
 
 }
@@ -468,35 +473,37 @@ function meetMonster(){
 	}
 }
 function UpdatePositionS(){
-	var moveTo=Math.floor(Math.random() * (4 - 1 + 1) + 1);
-	var cantMoveTo=[4,100,101,102,103, 301];
-	board[star.i][star.j]=star.prev;
-	if(moveTo==1){
-		if (star.i<9 &&!(cantMoveTo.includes(board[star.i+1][star.j]))){
-			star.i++;
+	if (ispause==false){
+		var moveTo=Math.floor(Math.random() * (4 - 1 + 1) + 1);
+		var cantMoveTo=[4,100,101,102,103, 301];
+		board[star.i][star.j]=star.prev;
+		if(moveTo==1){
+			if (star.i<9 &&!(cantMoveTo.includes(board[star.i+1][star.j]))){
+				star.i++;
+			}
 		}
-	}
-	if(moveTo==2){
-		if(star.j<9 && !(cantMoveTo.includes(board[star.i][star.j+1]))){
-			star.j++;
+		if(moveTo==2){
+			if(star.j<9 && !(cantMoveTo.includes(board[star.i][star.j+1]))){
+				star.j++;
+			}
 		}
-	}
-	if(moveTo==3){
-		if(star.i>0 && !(cantMoveTo.includes(board[star.i-1][star.j]))){
-			star.i--;
+		if(moveTo==3){
+			if(star.i>0 && !(cantMoveTo.includes(board[star.i-1][star.j]))){
+				star.i--;
+			}
 		}
-	}
-	if(moveTo==4){
-		if(star.j>0 && !(cantMoveTo.includes(board[star.i][star.j-1]))){
-			star.j--;
+		if(moveTo==4){
+			if(star.j>0 && !(cantMoveTo.includes(board[star.i][star.j-1]))){
+				star.j--;
+			}
 		}
-	}
-	if (board[star.i][star.j] ==2){
-		meetStar();
-	}
-	else{
-		star.prev=board[star.i][star.j];
-		board[star.i][star.j]=300
+		if (board[star.i][star.j] ==2){
+			meetStar();
+		}
+		else{
+			star.prev=board[star.i][star.j];
+			board[star.i][star.j]=300
+		}
 	}
 }
 function meetStar(){
@@ -505,89 +512,91 @@ function meetStar(){
 	
 }
 function UpdatePosition() {
-	if(document.getElementById("Game").style.display=="none"){
-		window.clearInterval(interval);
-		window.clearInterval(interval1);
-		window.clearInterval(interval2);
-	}
-	if(foodLeft==0){
-		window.clearInterval(interval);
-		window.clearInterval(interval1);
-		window.clearInterval(interval2);
-		openDialog('winner');
-	}
-	if (foodLeft==numberB-10 && clockleft>0){
-		var emptyCell2=findRandomEmptyCell(board);
-		board[emptyCell2[0]][emptyCell2[1]]=301;
-		clockleft--;
-	}
-	board[shape.i][shape.j] = 0;
-	var x = GetKeyPressed();
-	if (x == 1) {
-		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
-			shape.j--;
-			face=1;
+	if (ispause==false){
+		if(document.getElementById("Game").style.display=="none"){
+			window.clearInterval(interval);
+			window.clearInterval(interval1);
+			window.clearInterval(interval2);
 		}
-	}
-	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
-			shape.j++;
-			face=2;
+		if(foodLeft==0){
+			window.clearInterval(interval);
+			window.clearInterval(interval1);
+			window.clearInterval(interval2);
+			openDialog('winner');
 		}
-	}
-	if (x == 3) {
-		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
-			shape.i--;
-			face=3;
+		if (foodLeft==numberB-10 && clockleft>0){
+			var emptyCell2=findRandomEmptyCell(board);
+			board[emptyCell2[0]][emptyCell2[1]]=301;
+			clockleft--;
 		}
-	}
-	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
-			shape.i++;
-			face=4;
-		}
-	}
-	if (board[shape.i][shape.j] == 25 || board[shape.i][shape.j] == 15 || board[shape.i][shape.j] == 5) {
-		score=score+board[shape.i][shape.j];
-		foodLeft--;
-	}
-	if (board[shape.i][shape.j] == 100 || board[shape.i][shape.j] == 101 || board[shape.i][shape.j] == 102 ||board[shape.i][shape.j] == 103){
-		for (var k=0 ; k<monsters.length ; k++){
-			board[monsters[k].i][monsters[k].j]=monsters[k].prev;
-		}
-		meetMonster();
-	}
-	else{
-		if (board[shape.i][shape.j]==300){
-			meetStar();
-			if (star.prev==25 || star.prev==15|| star.prev==5){
-				score=score+star.prev;
-				foodLeft--;
+		board[shape.i][shape.j] = 0;
+		var x = GetKeyPressed();
+		if (x == 1) {
+			if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
+				shape.j--;
+				face=1;
 			}
 		}
-		else if (board[shape.i][shape.j]==301){
-			gametime=gametime+10;
+		if (x == 2) {
+			if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+				shape.j++;
+				face=2;
+			}
 		}
-		else if (board[shape.i][shape.j]==302){
-			numLive++;
-			document.getElementById(numLive).style.display="";
+		if (x == 3) {
+			if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
+				shape.i--;
+				face=3;
+			}
 		}
-		board[shape.i][shape.j] = 2;
-	}
-	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time) / 1000;
-	if((currentTime-start_time)/1000<=gametime)
-		Draw();
-	else {
-		window.clearInterval(interval);
-		window.clearInterval(interval1);
-		window.clearInterval(interval2);
-		if(score<100){
-			document.getElementById('text').innerHTML="You are better than "+ score +" points!";
-			openDialog('better');
+		if (x == 4) {
+			if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+				shape.i++;
+				face=4;
+			}
 		}
-		else
-			openDialog('winner');
+		if (board[shape.i][shape.j] == 25 || board[shape.i][shape.j] == 15 || board[shape.i][shape.j] == 5) {
+			score=score+board[shape.i][shape.j];
+			foodLeft--;
+		}
+		if (board[shape.i][shape.j] == 100 || board[shape.i][shape.j] == 101 || board[shape.i][shape.j] == 102 ||board[shape.i][shape.j] == 103){
+			for (var k=0 ; k<monsters.length ; k++){
+				board[monsters[k].i][monsters[k].j]=monsters[k].prev;
+			}
+			meetMonster();
+		}
+		else{
+			if (board[shape.i][shape.j]==300){
+				meetStar();
+				if (star.prev==25 || star.prev==15|| star.prev==5){
+					score=score+star.prev;
+					foodLeft--;
+				}
+			}
+			else if (board[shape.i][shape.j]==301){
+				gametime=gametime+10;
+			}
+			else if (board[shape.i][shape.j]==302){
+				numLive++;
+				document.getElementById(numLive).style.display="";
+			}
+			board[shape.i][shape.j] = 2;
+		}
+		var currentTime = new Date();
+		time_elapsed = (currentTime - start_time) / 1000+timepaused;
+		if((currentTime-start_time)/1000+timepaused<=gametime)
+			Draw();
+		else {
+			window.clearInterval(interval);
+			window.clearInterval(interval1);
+			window.clearInterval(interval2);
+			if(score<100){
+				document.getElementById('text').innerHTML="You are better than "+ score +" points!";
+				openDialog('better');
+			}
+			else
+				openDialog('winner');
+		}
 	}
 }
 function openDisplay(clicked_id){
@@ -709,9 +718,17 @@ function loginValidate() {
 	}
 }
 function openDialog(ID){
+	if(ID=="About")
+		timepaused= new Date();
+	ispause=true;
 	document.getElementById(ID).showModal();
 }
 function closeDialog(ID){
+	if (ID=="About"){
+		var now= new Date();
+		timepaused=(timepaused-now)/1000;
+	}
+	ispause=false;
 	document.getElementById(ID).close();
 	
 }
@@ -850,11 +867,11 @@ function resetOption(){
 	document.getElementById("BallRange").value=numberB;
 	numberM=2;
 	document.getElementById("numM").value = numberM;
-	ball5p="#ff0000";
+	ball5p="#8b467b";
 	document.getElementById("5p").value = ball5p;
-	ball15p="#c6d83b";
+	ball15p="#7D96F2";
 	document.getElementById("15p").value = ball15p;
-	ball25p="#38cc4a";
+	ball25p="#FF6B6B";
 	document.getElementById("25p").value = ball25p;
 	gametime=60;
 	document.getElementById("Time").value = gametime;
