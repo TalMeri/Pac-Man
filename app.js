@@ -79,7 +79,7 @@ function Start() {
 	for(var r=1; r<=5; r++)
 		document.getElementById(r).style.display="";
 	start_time = new Date();
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 11; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
@@ -88,7 +88,9 @@ function Start() {
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
 				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i == 6 && j == 2) ||
+				(i == 8 && j == 7) ||
+				(i == 8 && j == 6)
 			) {
 				board[i][j] = 4;
 			}
@@ -204,10 +206,10 @@ function Start() {
 }
 
 function findRandomEmptyCell(board) {
-	var i = Math.floor(Math.random() * 9 + 1);
+	var i = Math.floor(Math.random() * 10 + 1);
 	var j = Math.floor(Math.random() * 9 + 1);
 	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
+		i = Math.floor(Math.random() * 10 + 1);
 		j = Math.floor(Math.random() * 9 + 1);
 	}
 	return [i, j];
@@ -233,7 +235,7 @@ function Draw() {
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
 	lblTime1.value=gametime-time_elapsed;
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 11; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
 			center.x = i * 60 + 30;
@@ -409,7 +411,7 @@ function UpdatePositionM(){
 			if(monsters[i].i>shape.i && monsters[i].i>0 && !(cantMoveTo.includes(board[monsters[i].i-1][monsters[i].j]))){
 				monsters[i].i--;
 			}
-			else if(monsters[i].i<shape.i && monsters[i].i<9 && !(cantMoveTo.includes(board[monsters[i].i+1][monsters[i].j]))){
+			else if(monsters[i].i<shape.i && monsters[i].i<10 && !(cantMoveTo.includes(board[monsters[i].i+1][monsters[i].j]))){
 				monsters[i].i++;
 			}
 			else if (monsters[i].j>shape.j && monsters[i].j>0 && !(cantMoveTo.includes(board[monsters[i].i][monsters[i].j-1]))){
@@ -478,7 +480,7 @@ function UpdatePositionS(){
 		var cantMoveTo=[4,100,101,102,103, 301];
 		board[star.i][star.j]=star.prev;
 		if(moveTo==1){
-			if (star.i<9 &&!(cantMoveTo.includes(board[star.i+1][star.j]))){
+			if (star.i<10 &&!(cantMoveTo.includes(board[star.i+1][star.j]))){
 				star.i++;
 			}
 		}
@@ -550,7 +552,7 @@ function UpdatePosition() {
 			}
 		}
 		if (x == 4) {
-			if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+			if (shape.i < 10 && board[shape.i + 1][shape.j] != 4) {
 				shape.i++;
 				face=4;
 			}
@@ -849,7 +851,7 @@ function randomPick(){
 }
 
 function TimeUpdate(){
-	var val=document.getElementById("time").value;
+	var val=document.getElementById("Time").value;
 	gametime=val;
 
 }
