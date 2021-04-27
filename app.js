@@ -739,10 +739,14 @@ function changeKey(keyToChange,event){
 	if (val==" ")
 		val="Space"
 	if(keyToChange=="Up"){
+		var val1 = keys[0];
 		keys.splice(0,1);
 		if (keys.includes(val)){
 			document.getElementById("UpError").style.display="";
-			keys.splice(0,0,up);
+			setTimeout(function(){
+				document.getElementById("UpError").style.display = "none";
+			}, 1000); 
+			keys.splice(0,0,val1);
 		}
 		else{
 			document.getElementById("UpError").style.display="none";
@@ -752,10 +756,14 @@ function changeKey(keyToChange,event){
 		}
 	}
 	if(keyToChange=="Down"){
+		var val1 = keys[1];
 		keys.splice(1,1);
 		if (keys.includes(val)){
 			document.getElementById("DownError").style.display="";
-			keys.splice(1,0,down);
+			setTimeout(function(){
+				document.getElementById("DownError").style.display = "none";
+			}, 1000); 
+			keys.splice(1,0,val1);
 		}
 		else{
 			document.getElementById("DownError").style.display="none";
@@ -765,10 +773,14 @@ function changeKey(keyToChange,event){
 		}
 	}
 	if(keyToChange=="Left"){
+		var val1 = keys[2];
 		keys.splice(2,1);
 		if (keys.includes(val)){
 			document.getElementById("LeftError").style.display="";
-			keys.splice(2,0,left);
+			setTimeout(function(){
+				document.getElementById("LeftError").style.display = "none";
+			}, 1000); 
+			keys.splice(2,0,val1);
 		}
 		else{
 			document.getElementById("LeftError").style.display="none";
@@ -778,10 +790,14 @@ function changeKey(keyToChange,event){
 		}
 	}
 	if(keyToChange=="Right"){
+		var val1 = keys[3];
 		keys.splice(3,1);
 		if (keys.includes(val)){
 			document.getElementById("RightError").style.display="";
-			keys.splice(3,0,right);
+			setTimeout(function(){
+				document.getElementById("RightError").style.display = "none";
+			}, 1000); 
+			keys.splice(3,0,val1);
 		}
 		else{
 			document.getElementById("RightError").style.display="none";
