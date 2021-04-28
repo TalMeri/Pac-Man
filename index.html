@@ -78,22 +78,22 @@
 			<form id = "setting-form">
 				<div class="form-inner">
 					<label class="settingLable" for="Up">Press a key for UP</label>
-					<input type="text" id="Up" onkeydown="changeKey(this.id,event)" value="ArrowUp" name="keyup">
+					<input type="text" id="Up" onkeyup="changeval(this.id,event)" value="ArrowUp" name="keyup">
 					<div class="errorKey" id="UpError" style="display: none;">
 						<label class="error-key">Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Down">Press a key for DOWN </label>
-					<input type="text" id="Down" onkeydown="changeKey(this.id,event)" value="ArrowDown" name="keydown">
+					<input type="text" id="Down" onkeyup="changeval(this.id,event)" value="ArrowDown" name="keydown">
 					<div class="errorKey" id="DownError" style="display: none;">
 						<label class="error-key">Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Left">Press a key for LEFT </label>
-					<input type="text" id="Left" onkeydown="changeKey(this.id,event)" value="ArrowLeft" name="keyleft">
+					<input type="text" id="Left" onkeyup="changeval(this.id,event)" value="ArrowLeft" name="keyleft">
 					<div class="errorKey" id="LeftError" style="display: none;">
 						<label class="error-key">Key is already taken</label>
 					</div>
 					<label class="settingLable" for="Right">Press a key for RIGHT</label>
-					<input type="text" id="Right" onkeydown="changeKey(this.id,event)" value="ArrowRight" name="keyright">
+					<input type="text" id="Right" onkeydown="changekeyFortab(event)" onkeyup="changeval(this.id,event)" value="ArrowRight" name="keyright">
 					<div class="errorKey" id="RightError" style="display: none;">
 						<label>Key is already taken</label>
 					</div>
@@ -187,7 +187,7 @@
 		</div>
 		
 		<dialog class="box" id="About"><h2>ABOUT US &#128526;</h2><a class="close1" onclick="closeDialog('About')">X</a>
-			<p><b>Stav Tsabari and Tal Meridor</b></p><p>For this site we use two plugins:</br><ul><li> dob picker - for the date picker in the setting.</li><li> validate - to validate the info in the register form.</li></ul></p>
+			<p><b>Stav Tsabari and Tal Meridor</b></p><p>For this site we use two plugins:</br><ul><li> dob picker - for the date picker in the setting.</li><li> validate - to validation the info in the register form.</li></ul></p><p>We had difficulties to apply the validtion plugin.</p>
 		</dialog>
 
 <div id="Footer">

@@ -33,6 +33,7 @@ var foodLeft=70;
 var pillLeft=2;
 var clockleft=1;
 var ispause=false;
+var audio= new Audio("./pacmanMusic.mp3");
 
 function startgame(){
 	document.getElementById("Up1").value=document.getElementById("Up").value;
@@ -47,6 +48,7 @@ function startgame(){
 	document.getElementById("Time1").value = gametime;
 	openDisplay("Game");
 	$(document).ready(function() {
+		audio.play();
 		context = canvas.getContext("2d");
 		Start();
 	});
@@ -519,6 +521,7 @@ function UpdatePosition() {
 			window.clearInterval(interval);
 			window.clearInterval(interval1);
 			window.clearInterval(interval2);
+			audio.pause();
 		}
 		if(foodLeft==0){
 			window.clearInterval(interval);
@@ -606,6 +609,9 @@ function openDisplay(clicked_id){
 	var i;
 	for (i=0; i<screens.length; i++){
 		screens[i].style.display='none';
+	}
+	if (clicked_id!="Game"){
+		audio.pause();
 	}
 	document.getElementById(clicked_id).style.display="block";
 }
@@ -734,10 +740,24 @@ function closeDialog(ID){
 	document.getElementById(ID).close();
 	
 }
-function changeKey(keyToChange,event){
+function changekeyFortab(event){
+	if (event.key=="Tab")
+		changeval(null,event)
+}
+function changeval(keyToChange,event){
 	var val = event.key;
 	if (val==" ")
 		val="Space"
+	if (val=="Tab"){
+		if(keyToChange=="Down")
+			keyToChange="Up"
+		else if(keyToChange=="Left")
+			keyToChange="Down"
+		else if(keyToChange=="Right")
+			keyToChange="Left"
+		else
+			keyToChange="Right"
+	}
 	if(keyToChange=="Up"){
 		var val1 = keys[0];
 		keys.splice(0,1);
@@ -817,6 +837,7 @@ function newGame(){
 	window.clearInterval(interval);
 	window.clearInterval(interval1);
 	window.clearInterval(interval2);
+	audio.pause();
 	openDisplay("Setting");
 }
 function numMonster(){
