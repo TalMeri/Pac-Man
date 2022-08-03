@@ -2,10 +2,10 @@
 An online game that incorporates HTML5 for structure and design, JavaScript for functionality and jQuery for user management
 
 ### Use-cases
-In this site you can- 
--register and login
--change the setting
--play the Pac-Man game.
+In this site you can:
+- register and login
+- change the setting
+- play the Pac-Man game.
 
 ### Additional functionality
 - Pill- The pills appears when the Pac-Man is dead by a monster in the first two times. When the Pac-Man eats the pill, he gets one more life.
@@ -16,5 +16,5 @@ In this site you can-
 https://web-development-environments-2021.github.io/assignment2_313261257_316296912/
 
 ### Authors
-Tal Meridor 313261257
-Stav Tsabari 316296912
+- Tal Meridor 313261257
+- Stav Tsabari 316296912
