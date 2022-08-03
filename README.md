@@ -2,7 +2,6 @@
 An online game that incorporates HTML5 for structure and design, JavaScript for functionality and jQuery for user management
 
 ### Use-cases
-In this site you can:
 - register and login
 - change the setting
 - play the Pac-Man game.
