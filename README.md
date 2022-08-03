@@ -15,5 +15,5 @@ An online game that incorporates HTML5 for structure and design, JavaScript for 
 https://web-development-environments-2021.github.io/assignment2_313261257_316296912/
 
 ### Authors
-- Tal Meridor 313261257
-- Stav Tsabari 316296912
+- Tal Meridor
+- Stav Tsabari
